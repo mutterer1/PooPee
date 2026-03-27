@@ -14,6 +14,7 @@ import MealModal from '@/components/MealModal';
 import BackgroundWatermark from '@/components/BackgroundWatermark';
 import ChatbotButton from '@/components/ChatbotButton';
 import ChatbotCompanion from '@/components/ChatbotCompanion';
+import PooPeeLogo from '@/components/PooPeeLogo';
 import {
   Camera,
   ChevronRight,
@@ -105,13 +106,11 @@ export default function HomeScreen() {
 
   const loadData = async () => {
     if (!user) {
-      console.log('No user found, skipping data load');
       return;
     }
 
     try {
       setLoading(true);
-      console.log('Loading data for user:', user.id);
 
       const { data: profileData, error: profileError } = await supabase
         .from('profiles')
@@ -131,7 +130,6 @@ export default function HomeScreen() {
       todayStart.setHours(0, 0, 0, 0);
 
       const todayIso = todayStart.toISOString();
-      console.log('Loading entries since:', todayIso);
 
       const [{ data: bowels, error: bowelsError }, { data: urinations, error: urinationsError }, { data: meals, error: mealsError }] = await Promise.all([
         supabase
@@ -157,8 +155,6 @@ export default function HomeScreen() {
       if (bowelsError) console.error('Bowels query error:', bowelsError);
       if (urinationsError) console.error('Urinations query error:', urinationsError);
       if (mealsError) console.error('Meals query error:', mealsError);
-
-      console.log('Loaded entries - Bowels:', bowels?.length, 'Urinations:', urinations?.length, 'Meals:', meals?.length);
 
       setStats({
         bowelCount: bowels?.length || 0,
@@ -262,15 +258,8 @@ export default function HomeScreen() {
         }
       >
         <View style={styles.heroCard}>
-          <View style={styles.headerRow}>
-            <View style={styles.headerTextWrap}>
-              <Text style={styles.greeting}>
-                Welcome back, {profile?.display_name || 'Friend'}!
-              </Text>
-              <Text style={styles.subtitle}>
-                Track body signals, meals, and small patterns that matter.
-              </Text>
-            </View>
+          <View style={styles.brandRow}>
+            <PooPeeLogo size={170} showText={true} />
 
             <TouchableOpacity
               style={styles.cameraButton}
@@ -279,6 +268,15 @@ export default function HomeScreen() {
             >
               <Camera size={22} color="#FFFFFF" />
             </TouchableOpacity>
+          </View>
+
+          <View style={styles.welcomeBlock}>
+            <Text style={styles.greeting}>
+              Welcome back, {profile?.display_name || 'Friend'}!
+            </Text>
+            <Text style={styles.subtitle}>
+              Track body signals, meals, and overlooked wellness clues with calm, useful guidance.
+            </Text>
           </View>
 
           <View style={styles.heroFooter}>
@@ -522,36 +520,22 @@ const styles = StyleSheet.create({
     paddingBottom: SPACING.xxl,
   },
   heroCard: {
-    backgroundColor: 'rgba(255,255,255,0.82)',
+    backgroundColor: 'rgba(255,255,255,0.9)',
     borderRadius: BORDER_RADIUS.lg,
     padding: SPACING.lg,
     marginBottom: SPACING.lg,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.65)',
+    borderColor: 'rgba(255,255,255,0.7)',
     ...SHADOWS.md,
   },
-  headerRow: {
+  brandRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
     gap: SPACING.md,
   },
-  headerTextWrap: {
-    flex: 1,
-    paddingRight: SPACING.sm,
-  },
-  greeting: {
-    fontSize: 28,
-    fontWeight: '700',
-    color: MEDITATIVE_COLORS.text.primary,
-    letterSpacing: -0.6,
-    lineHeight: 34,
-  },
-  subtitle: {
-    fontSize: 15,
-    color: MEDITATIVE_COLORS.text.secondary,
-    marginTop: SPACING.sm,
-    lineHeight: 22,
+  welcomeBlock: {
+    marginTop: SPACING.lg,
   },
   cameraButton: {
     width: 54,
@@ -561,6 +545,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     ...SHADOWS.md,
+  },
+  greeting: {
+    fontSize: 26,
+    fontWeight: '700',
+    color: MEDITATIVE_COLORS.text.primary,
+    letterSpacing: -0.5,
+    lineHeight: 32,
+  },
+  subtitle: {
+    fontSize: 15,
+    color: MEDITATIVE_COLORS.text.secondary,
+    marginTop: SPACING.sm,
+    lineHeight: 22,
   },
   heroFooter: {
     marginTop: SPACING.md,
