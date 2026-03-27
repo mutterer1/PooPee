@@ -1,23 +1,20 @@
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import PooPeeLogo from '@/components/PooPeeLogo';
 
 export default function BackgroundWatermark() {
   return (
     <View style={styles.container} pointerEvents="none">
-      <Image
-        source={require('@/assets/images/branding/logo-mark.png')}
-        style={[styles.watermark, styles.center]}
-        resizeMode="contain"
-      />
-      <Image
-        source={require('@/assets/images/branding/logo-mark.png')}
-        style={[styles.watermark, styles.topLeft]}
-        resizeMode="contain"
-      />
-      <Image
-        source={require('@/assets/images/branding/logo-mark.png')}
-        style={[styles.watermark, styles.bottomRight]}
-        resizeMode="contain"
-      />
+      <View style={[styles.markWrap, styles.center]}>
+        <PooPeeLogo size={130} showText={false} />
+      </View>
+
+      <View style={[styles.markWrap, styles.topLeft]}>
+        <PooPeeLogo size={95} showText={true} />
+      </View>
+
+      <View style={[styles.markWrap, styles.bottomRight]}>
+        <PooPeeLogo size={105} showText={true} />
+      </View>
     </View>
   );
 }
@@ -25,35 +22,26 @@ export default function BackgroundWatermark() {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
+    inset: 0,
     zIndex: 0,
   },
-  watermark: {
+  markWrap: {
     position: 'absolute',
-    width: 200,
-    height: 200,
-    opacity: 0.08,
+    opacity: 0.018,
   },
   center: {
-    top: '50%',
+    top: '48%',
     left: '50%',
-    transform: [{ translateX: -100 }, { translateY: -100 }],
+    transform: [{ translateX: -65 }, { translateY: -65 }],
   },
   topLeft: {
-    top: '15%',
-    left: '10%',
-    width: 150,
-    height: 150,
-    transform: [{ translateX: -75 }, { translateY: -75 }, { rotate: '-15deg' }],
+    top: '11%',
+    left: '6%',
+    transform: [{ rotate: '-10deg' }],
   },
   bottomRight: {
-    top: '75%',
-    left: '70%',
-    width: 180,
-    height: 180,
-    transform: [{ translateX: -90 }, { translateY: -90 }, { rotate: '20deg' }],
+    bottom: '14%',
+    right: '8%',
+    transform: [{ rotate: '16deg' }],
   },
 });
