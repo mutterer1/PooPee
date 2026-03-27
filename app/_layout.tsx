@@ -74,6 +74,6 @@ const styles = StyleSheet.create({
     lineHeight: 20,
     color: MEDITATIVE_COLORS.text.secondary,
     textAlign: 'center',
-    maxWidth: 260,
+    maxWidth: 270,
   },
 });
