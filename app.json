@@ -1,15 +1,21 @@
 {
   "expo": {
-    "name": "bolt-expo-nativewind",
-    "slug": "bolt-expo-nativewind",
+    "name": "PooPee Health",
+    "slug": "poopee-health",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/branding/icon/icon.png",
-    "scheme": "myapp",
+    "icon": "./assets/images/branding/icon.png",
+    "scheme": "poopeehealth",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/branding/icon.png",
+        "backgroundColor": "#F7F4EF"
+      }
     },
     "web": {
       "bundler": "metro",
@@ -24,8 +30,8 @@
         "expo-splash-screen",
         {
           "backgroundColor": "#F7F4EF",
-          "image": "./assets/branding/splash-logo/splash-logo.png",
-          "imageWidth": 180
+          "image": "./assets/images/branding/splash-logo.png",
+          "imageWidth": 200
         }
       ]
     ],
