@@ -8,11 +8,11 @@ interface PooPeeLogoProps {
 }
 
 export default function PooPeeLogo({
-  size = 220,
+  size = 200,
   showText = true,
   stacked = false,
 }: PooPeeLogoProps) {
-  const logoMarkSize = showText ? size * 0.34 : size;
+  const markSize = showText ? size * 0.34 : size;
   const primarySize = size * 0.19;
   const secondarySize = primarySize * 0.95;
 
@@ -25,8 +25,8 @@ export default function PooPeeLogo({
       ]}
     >
       <Svg
-        width={logoMarkSize}
-        height={logoMarkSize}
+        width={markSize}
+        height={markSize}
         viewBox="0 0 200 200"
         style={[styles.logoMark, stacked && styles.logoMarkStacked]}
       >
