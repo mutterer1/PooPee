@@ -11,7 +11,7 @@ import ChatbotButton from '@/components/ChatbotButton';
 import ChatbotCompanion from '@/components/ChatbotCompanion';
 import PhotoAnalysisModal from '@/components/PhotoAnalysisModal';
 import InsightsModal from '@/components/InsightsModal';
-import { Camera } from 'lucide-react-native';
+import { Camera, Activity, Droplets, Utensils } from 'lucide-react-native';
 import { useAuth } from '@/lib/auth.context';
 import { supabase } from '@/lib/supabase';
 import { buildUnifiedEntries, formatEntryTime, UnifiedEntry } from '@/lib/insights';
@@ -25,6 +25,7 @@ const ENTRY_COLORS: Record<UnifiedEntry['type'], string> = {
 export default function TrackScreen() {
   const insets = useSafeAreaInsets();
   const { user } = useAuth();
+
   const [bowelVisible, setBowelVisible] = useState(false);
   const [urinationVisible, setUrinationVisible] = useState(false);
   const [mealVisible, setMealVisible] = useState(false);
@@ -36,7 +37,6 @@ export default function TrackScreen() {
   const [prefilledMealData, setPrefilledMealData] = useState<any>(null);
   const [insightsVisible, setInsightsVisible] = useState(false);
   const [currentEntryId, setCurrentEntryId] = useState<string | null>(null);
-  const [cameraMode, setCameraMode] = useState<'stool' | 'meal'>('stool');
   const [mealCameraVisible, setMealCameraVisible] = useState(false);
 
   const loadRecentEntries = useCallback(async () => {
@@ -106,18 +106,17 @@ export default function TrackScreen() {
   };
 
   const openStoolCamera = () => {
-    setCameraMode('stool');
     setCameraVisible(true);
   };
 
   const openMealCamera = () => {
-    setCameraMode('meal');
     setMealCameraVisible(true);
   };
 
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
       <BackgroundWatermark />
+
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
@@ -132,56 +131,87 @@ export default function TrackScreen() {
       >
         <View style={styles.header}>
           <Text style={styles.title}>Track Your Health</Text>
-          <Text style={styles.subtitle}>Choose one thing to log. Small entries create useful patterns.</Text>
+          <Text style={styles.subtitle}>
+            Choose one thing to log. Small entries create useful patterns.
+          </Text>
         </View>
 
         <View style={styles.trackingOptions}>
-          <TouchableOpacity style={[baseStyles.card, styles.cameraCard]} onPress={openStoolCamera}>
-            <View style={[styles.trackIconContainer, { backgroundColor: MEDITATIVE_COLORS.primary.lavender + '20' }]}>
-              <Camera size={32} color={MEDITATIVE_COLORS.primary.lavender} />
+          <TouchableOpacity style={[baseStyles.card, styles.trackCard]} onPress={openStoolCamera}>
+            <View style={[styles.trackIconContainer, styles.aiIconWrap]}>
+              <Camera size={30} color={MEDITATIVE_COLORS.primary.lavender} />
             </View>
             <Text style={styles.trackTitle}>AI Stool Analysis</Text>
-            <Text style={styles.trackDescription}>Snap a photo and let AI analyze your stool</Text>
+            <Text style={styles.trackDescription}>
+              Snap a photo and let AI analyze your stool.
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={[baseStyles.card, styles.trackCard]} onPress={() => setBowelVisible(true)}>
-            <View style={[styles.trackIconContainer, { backgroundColor: MEDITATIVE_COLORS.tracking.bowel + '20' }]}>
-              <Text style={styles.trackEmoji}>💩</Text>
+            <View
+              style={[
+                styles.trackIconContainer,
+                { backgroundColor: `${MEDITATIVE_COLORS.tracking.bowel}18` },
+              ]}
+            >
+              <Activity size={30} color={MEDITATIVE_COLORS.text.primary} />
             </View>
             <Text style={styles.trackTitle}>Bowel Movement</Text>
-            <Text style={styles.trackDescription}>Bristol scale, urgency, symptoms, and notes</Text>
+            <Text style={styles.trackDescription}>
+              Bristol scale, urgency, symptoms, and notes.
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={[baseStyles.card, styles.trackCard]} onPress={() => setUrinationVisible(true)}>
-            <View style={[styles.trackIconContainer, { backgroundColor: MEDITATIVE_COLORS.tracking.urination + '20' }]}>
-              <Text style={styles.trackEmoji}>💧</Text>
+            <View
+              style={[
+                styles.trackIconContainer,
+                { backgroundColor: `${MEDITATIVE_COLORS.tracking.urination}18` },
+              ]}
+            >
+              <Droplets size={30} color={MEDITATIVE_COLORS.text.primary} />
             </View>
             <Text style={styles.trackTitle}>Urination</Text>
-            <Text style={styles.trackDescription}>Volume, color, timing, and flow clues</Text>
+            <Text style={styles.trackDescription}>
+              Volume, color, timing, and flow clues.
+            </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={[baseStyles.card, styles.cameraCard]} onPress={openMealCamera}>
-            <View style={[styles.trackIconContainer, { backgroundColor: MEDITATIVE_COLORS.primary.lavender + '20' }]}>
-              <Camera size={32} color={MEDITATIVE_COLORS.primary.lavender} />
+          <TouchableOpacity style={[baseStyles.card, styles.trackCard]} onPress={openMealCamera}>
+            <View style={[styles.trackIconContainer, styles.aiIconWrap]}>
+              <Camera size={30} color={MEDITATIVE_COLORS.primary.lavender} />
             </View>
             <Text style={styles.trackTitle}>AI Meal Analysis</Text>
-            <Text style={styles.trackDescription}>Snap a photo and get nutritional estimates</Text>
+            <Text style={styles.trackDescription}>
+              Snap a photo and get nutritional estimates.
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={[baseStyles.card, styles.trackCard]} onPress={() => setMealVisible(true)}>
-            <View style={[styles.trackIconContainer, { backgroundColor: MEDITATIVE_COLORS.tracking.meal + '20' }]}>
-              <Text style={styles.trackEmoji}>🍽️</Text>
+            <View
+              style={[
+                styles.trackIconContainer,
+                { backgroundColor: `${MEDITATIVE_COLORS.tracking.meal}18` },
+              ]}
+            >
+              <Utensils size={30} color={MEDITATIVE_COLORS.text.primary} />
             </View>
             <Text style={styles.trackTitle}>Meal</Text>
-            <Text style={styles.trackDescription}>Capture food context for later pattern detection</Text>
+            <Text style={styles.trackDescription}>
+              Capture food context for later pattern detection.
+            </Text>
           </TouchableOpacity>
         </View>
 
         <View style={styles.recentSection}>
           <Text style={styles.sectionTitle}>Recent Entries</Text>
+
           {recentEntries.length === 0 ? (
             <View style={[baseStyles.card, styles.placeholderCard]}>
-              <Text style={styles.placeholderText}>No entries yet. Start tracking to build your history.</Text>
+              <Text style={styles.placeholderTitle}>No entries yet</Text>
+              <Text style={styles.placeholderText}>
+                Start tracking to build a useful history over time.
+              </Text>
             </View>
           ) : (
             recentEntries.map((entry) => (
@@ -189,7 +219,7 @@ export default function TrackScreen() {
                 <View style={styles.entryRow}>
                   <View style={styles.entryLeft}>
                     <View style={[styles.entryDot, { backgroundColor: ENTRY_COLORS[entry.type] }]} />
-                    <View>
+                    <View style={styles.entryTextWrap}>
                       <Text style={styles.entryTitle}>{entry.title}</Text>
                       <Text style={styles.entryDetail}>{entry.detail}</Text>
                     </View>
@@ -272,7 +302,8 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     paddingHorizontal: SPACING.md,
-    paddingVertical: SPACING.md,
+    paddingTop: SPACING.md,
+    paddingBottom: 150,
   },
   header: {
     marginBottom: SPACING.xl,
@@ -281,11 +312,14 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: '700',
     color: MEDITATIVE_COLORS.text.primary,
+    letterSpacing: -0.5,
   },
   subtitle: {
     fontSize: 16,
+    lineHeight: 24,
     color: MEDITATIVE_COLORS.text.secondary,
     marginTop: SPACING.sm,
+    maxWidth: 330,
   },
   trackingOptions: {
     marginBottom: SPACING.xl,
@@ -293,52 +327,59 @@ const styles = StyleSheet.create({
   trackCard: {
     marginBottom: SPACING.md,
     alignItems: 'center',
-  },
-  cameraCard: {
-    marginBottom: SPACING.md,
-    alignItems: 'center',
-    borderWidth: 2,
-    borderColor: MEDITATIVE_COLORS.primary.lavender + '40',
+    paddingVertical: SPACING.xl,
+    borderWidth: 1,
+    borderColor: 'rgba(180, 167, 214, 0.12)',
   },
   trackIconContainer: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
+    width: 72,
+    height: 72,
+    borderRadius: 36,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: SPACING.md,
+    backgroundColor: '#F3F1F7',
   },
-  trackEmoji: {
-    fontSize: 32,
+  aiIconWrap: {
+    backgroundColor: 'rgba(142, 125, 190, 0.12)',
   },
   trackTitle: {
-    fontSize: 16,
-    fontWeight: '600',
+    fontSize: 18,
+    fontWeight: '700',
     color: MEDITATIVE_COLORS.text.primary,
+    textAlign: 'center',
   },
   trackDescription: {
-    fontSize: 13,
+    fontSize: 14,
+    lineHeight: 21,
     color: MEDITATIVE_COLORS.text.secondary,
     marginTop: SPACING.xs,
     textAlign: 'center',
+    maxWidth: 290,
   },
   recentSection: {
     marginBottom: SPACING.xl,
   },
   sectionTitle: {
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: '700',
     color: MEDITATIVE_COLORS.text.primary,
     marginBottom: SPACING.md,
   },
   placeholderCard: {
-    alignItems: 'center',
-    justifyContent: 'center',
     paddingVertical: SPACING.xl,
+  },
+  placeholderTitle: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: MEDITATIVE_COLORS.text.primary,
+    marginBottom: 8,
+    textAlign: 'center',
   },
   placeholderText: {
     color: MEDITATIVE_COLORS.text.secondary,
-    fontSize: 14,
+    fontSize: 15,
+    lineHeight: 22,
     textAlign: 'center',
   },
   entryCard: {
@@ -348,34 +389,36 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    gap: SPACING.sm,
   },
   entryLeft: {
     flexDirection: 'row',
-    alignItems: 'center',
-    gap: SPACING.sm,
     flex: 1,
+    marginRight: SPACING.sm,
   },
   entryDot: {
-    width: 12,
-    height: 12,
-    borderRadius: 6,
-    marginTop: 4,
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    marginTop: 6,
+    marginRight: SPACING.md,
+  },
+  entryTextWrap: {
+    flex: 1,
   },
   entryTitle: {
     fontSize: 15,
-    fontWeight: '600',
+    fontWeight: '700',
     color: MEDITATIVE_COLORS.text.primary,
   },
   entryDetail: {
     fontSize: 13,
     color: MEDITATIVE_COLORS.text.secondary,
-    marginTop: 2,
+    marginTop: 4,
+    lineHeight: 19,
   },
   entryTime: {
     fontSize: 12,
     color: MEDITATIVE_COLORS.text.secondary,
-    width: 88,
-    textAlign: 'right',
+    marginTop: 2,
   },
 });
