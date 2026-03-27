@@ -1,9 +1,19 @@
 import { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform, ScrollView, Image } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+} from 'react-native';
 import { useRouter } from 'expo-router';
 import { useAuth } from '@/lib/auth.context';
 import { MEDITATIVE_COLORS } from '@/theme/colors';
 import { SPACING, BORDER_RADIUS, baseStyles, buttonStyles } from '@/theme/styles';
+import PooPeeLogo from '@/components/PooPeeLogo';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
@@ -12,6 +22,8 @@ export default function LoginScreen() {
   const [loading, setLoading] = useState(false);
   const { signIn } = useAuth();
   const router = useRouter();
+
+  const styles = buttonStyles(MEDITATIVE_COLORS.primary.lavender);
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -33,18 +45,17 @@ export default function LoginScreen() {
     router.push('/auth/signup');
   };
 
-  const styles = buttonStyles(MEDITATIVE_COLORS.primary.lavender);
-
   return (
-    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={localStyles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={localStyles.container}
+    >
       <ScrollView contentContainerStyle={localStyles.scrollContent} showsVerticalScrollIndicator={false}>
         <View style={localStyles.header}>
-          <Image
-            source={require('@/assets/branding/logo/logo.png')}
-            style={localStyles.logo}
-            resizeMode="contain"
-          />
-          <Text style={localStyles.subtitle}>Smarter Tracking for Life's Most Overlooked Signals</Text>
+          <PooPeeLogo size={240} showText={true} stacked={true} />
+          <Text style={localStyles.subtitle}>
+            Smarter tracking for life&apos;s most overlooked signals.
+          </Text>
         </View>
 
         <View style={localStyles.form}>
@@ -84,17 +95,20 @@ export default function LoginScreen() {
           </View>
 
           <TouchableOpacity
-            style={[styles.primary, { marginTop: SPACING.lg }]}
+            style={[styles.primary, localStyles.signInButton]}
             onPress={handleLogin}
-            disabled={loading}>
-            <Text style={baseStyles.buttonText}>{loading ? 'Signing In...' : 'Sign In'}</Text>
+            disabled={loading}
+          >
+            <Text style={baseStyles.buttonText}>
+              {loading ? 'Signing In...' : 'Sign In'}
+            </Text>
           </TouchableOpacity>
 
           <View style={localStyles.divider} />
 
           <TouchableOpacity onPress={goToSignup} disabled={loading}>
             <Text style={localStyles.linkText}>
-              Don't have an account? <Text style={localStyles.linkBold}>Sign Up</Text>
+              Don&apos;t have an account? <Text style={localStyles.linkBold}>Sign Up</Text>
             </Text>
           </TouchableOpacity>
         </View>
@@ -112,21 +126,18 @@ const localStyles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'center',
     paddingHorizontal: SPACING.md,
-    paddingVertical: SPACING.lg,
+    paddingTop: SPACING.xxl,
+    paddingBottom: SPACING.xl,
   },
   header: {
     alignItems: 'center',
-    marginBottom: SPACING.xxl,
-  },
-  logo: {
-    width: 200,
-    height: 80,
-    marginBottom: SPACING.md,
+    marginBottom: 28,
   },
   subtitle: {
-    fontSize: 15,
+    fontSize: 16,
+    lineHeight: 22,
     color: MEDITATIVE_COLORS.text.secondary,
-    marginTop: SPACING.sm,
+    marginTop: 14,
     textAlign: 'center',
     maxWidth: 320,
   },
@@ -134,7 +145,7 @@ const localStyles = StyleSheet.create({
     marginBottom: SPACING.lg,
   },
   inputGroup: {
-    marginBottom: SPACING.lg,
+    marginBottom: 18,
   },
   errorText: {
     backgroundColor: MEDITATIVE_COLORS.semantic.error,
@@ -144,6 +155,9 @@ const localStyles = StyleSheet.create({
     marginBottom: SPACING.md,
     fontSize: 14,
   },
+  signInButton: {
+    marginTop: 8,
+  },
   divider: {
     height: 1,
     backgroundColor: MEDITATIVE_COLORS.neutral.lightGray,
@@ -152,7 +166,7 @@ const localStyles = StyleSheet.create({
   linkText: {
     textAlign: 'center',
     color: MEDITATIVE_COLORS.text.primary,
-    fontSize: 14,
+    fontSize: 15,
   },
   linkBold: {
     fontWeight: '700',
