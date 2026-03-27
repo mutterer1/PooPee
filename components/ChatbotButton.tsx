@@ -2,9 +2,9 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { MessageCircle } from 'lucide-react-native';
 import { MEDITATIVE_COLORS } from '@/theme/colors';
-import { SPACING, SHADOWS } from '@/theme/styles';
+import { SHADOWS } from '@/theme/styles';
 
-const BUTTON_SIZE = 56;
+const BUTTON_SIZE = 62;
 
 interface ChatbotButtonProps {
   onPress: () => void;
@@ -12,12 +12,8 @@ interface ChatbotButtonProps {
 
 export default function ChatbotButton({ onPress }: ChatbotButtonProps) {
   return (
-    <TouchableOpacity
-      style={styles.button}
-      onPress={onPress}
-      activeOpacity={0.8}
-    >
-      <MessageCircle size={24} color="#FFFFFF" />
+    <TouchableOpacity style={styles.button} onPress={onPress} activeOpacity={0.85}>
+      <MessageCircle size={26} color="#FFFFFF" />
     </TouchableOpacity>
   );
 }
@@ -25,8 +21,8 @@ export default function ChatbotButton({ onPress }: ChatbotButtonProps) {
 const styles = StyleSheet.create({
   button: {
     position: 'absolute',
-    bottom: SPACING.xl + 70,
-    right: SPACING.md,
+    right: 20,
+    bottom: 96,
     width: BUTTON_SIZE,
     height: BUTTON_SIZE,
     borderRadius: BUTTON_SIZE / 2,
