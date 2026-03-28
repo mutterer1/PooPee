@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform, ScrollView, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useAuth } from '@/lib/auth.context';
 import { MEDITATIVE_COLORS } from '@/theme/colors';
 import { SPACING, BORDER_RADIUS, baseStyles, buttonStyles } from '@/theme/styles';
+import PooPeeLogo from '@/components/PooPeeLogo';
 
 export default function SignUpScreen() {
   const [displayName, setDisplayName] = useState('');
@@ -51,11 +52,7 @@ export default function SignUpScreen() {
     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={localStyles.container}>
       <ScrollView contentContainerStyle={localStyles.scrollContent} showsVerticalScrollIndicator={false}>
         <View style={localStyles.header}>
-          <Image
-            source={require('@/assets/branding/logo/logo.png')}
-            style={localStyles.logo}
-            resizeMode="contain"
-          />
+          <PooPeeLogo size={200} stacked />
           <Text style={localStyles.subtitle}>Smarter Tracking for Life's Most Overlooked Signals</Text>
         </View>
 
@@ -160,11 +157,6 @@ const localStyles = StyleSheet.create({
   header: {
     alignItems: 'center',
     marginBottom: SPACING.xxl,
-  },
-  logo: {
-    width: 200,
-    height: 80,
-    marginBottom: SPACING.md,
   },
   subtitle: {
     fontSize: 15,
