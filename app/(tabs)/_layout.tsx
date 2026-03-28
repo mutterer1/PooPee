@@ -1,63 +1,159 @@
 import { Tabs } from 'expo-router';
-import { House, ChartBar as BarChart3, Settings, LogOut } from 'lucide-react-native';
-import { MEDITATIVE_COLORS } from '@/theme/colors';
-import { useAuth } from '@/lib/auth.context';
-import { TouchableOpacity } from 'react-native';
+import { House, ChartBar as BarChart3, Settings } from 'lucide-react-native';
+import { DS } from '@/theme/colors';
+import { View, Text, StyleSheet } from 'react-native';
 import PoopIcon from '@/components/PoopIcon';
+import { LinearGradient } from 'expo-linear-gradient';
+
+function GradientTabBar({ children }: { children: React.ReactNode }) {
+  return (
+    <LinearGradient
+      colors={[DS.primary, DS.secondary]}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 0 }}
+      style={styles.gradientBar}
+    >
+      {children}
+    </LinearGradient>
+  );
+}
+
+function TabIcon({
+  icon,
+  label,
+  focused,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  focused: boolean;
+}) {
+  return (
+    <View style={styles.tabItem}>
+      {focused ? (
+        <LinearGradient
+          colors={['rgba(255,255,255,0.28)', 'rgba(255,255,255,0.12)']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={styles.activePill}
+        >
+          {icon}
+        </LinearGradient>
+      ) : (
+        <View style={styles.inactivePill}>{icon}</View>
+      )}
+      <Text style={[styles.tabLabel, focused && styles.tabLabelActive]}>{label}</Text>
+    </View>
+  );
+}
 
 export default function TabsLayout() {
-  const { signOut } = useAuth();
-
-  const handleLogout = async () => {
-    await signOut();
-  };
-
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: MEDITATIVE_COLORS.primary.lavender,
-        tabBarInactiveTintColor: MEDITATIVE_COLORS.neutral.mediumGray,
-        tabBarStyle: {
-          backgroundColor: MEDITATIVE_COLORS.backgrounds.card,
-          borderTopColor: MEDITATIVE_COLORS.neutral.lightGray,
-          paddingBottom: 8,
-          paddingTop: 8,
-          height: 60,
-        },
-        tabBarLabelStyle: {
-          fontSize: 12,
-          fontWeight: '500',
-        },
+        tabBarShowLabel: false,
+        tabBarStyle: styles.tabBar,
+        tabBarBackground: () => (
+          <LinearGradient
+            colors={[DS.primary, DS.secondary]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            style={StyleSheet.absoluteFill}
+          />
+        ),
       }}>
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ size, color }) => <House size={size} color={color} strokeWidth={2} />,
+          tabBarIcon: ({ focused }) => (
+            <TabIcon
+              icon={<House size={20} color="#ffffff" strokeWidth={focused ? 2.5 : 1.8} />}
+              label="Home"
+              focused={focused}
+            />
+          ),
         }}
       />
       <Tabs.Screen
         name="track"
         options={{
-          title: 'Track',
-          tabBarIcon: ({ size, color }) => <PoopIcon size={size} color={color} />,
+          tabBarIcon: ({ focused }) => (
+            <TabIcon
+              icon={<PoopIcon size={20} color="#ffffff" />}
+              label="Track"
+              focused={focused}
+            />
+          ),
         }}
       />
       <Tabs.Screen
         name="insights"
         options={{
-          title: 'Insights',
-          tabBarIcon: ({ size, color }) => <BarChart3 size={size} color={color} strokeWidth={2} />,
+          tabBarIcon: ({ focused }) => (
+            <TabIcon
+              icon={<BarChart3 size={20} color="#ffffff" strokeWidth={focused ? 2.5 : 1.8} />}
+              label="Insights"
+              focused={focused}
+            />
+          ),
         }}
       />
       <Tabs.Screen
         name="settings"
         options={{
-          title: 'Settings',
-          tabBarIcon: ({ size, color }) => <Settings size={size} color={color} strokeWidth={2} />,
+          tabBarIcon: ({ focused }) => (
+            <TabIcon
+              icon={<Settings size={20} color="#ffffff" strokeWidth={focused ? 2.5 : 1.8} />}
+              label="Settings"
+              focused={focused}
+            />
+          ),
         }}
       />
     </Tabs>
   );
 }
+
+const styles = StyleSheet.create({
+  tabBar: {
+    borderTopWidth: 0,
+    elevation: 0,
+    height: 72,
+    paddingBottom: 0,
+    paddingTop: 0,
+    backgroundColor: 'transparent',
+  },
+  gradientBar: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  tabItem: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 3,
+    paddingTop: 6,
+  },
+  activePill: {
+    width: 52,
+    height: 36,
+    borderRadius: 18,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  inactivePill: {
+    width: 52,
+    height: 36,
+    borderRadius: 18,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  tabLabel: {
+    fontSize: 11,
+    fontWeight: '500',
+    color: 'rgba(255,255,255,0.65)',
+  },
+  tabLabelActive: {
+    color: '#ffffff',
+    fontWeight: '700',
+  },
+});
