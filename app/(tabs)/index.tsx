@@ -259,14 +259,14 @@ export default function HomeScreen() {
       >
         <View style={styles.heroCard}>
           <View style={styles.brandRow}>
-            <PooPeeLogo size={170} showText={true} />
+            <PooPeeLogo size={170} showText={true} stacked={true} />
 
             <TouchableOpacity
               style={styles.cameraButton}
               activeOpacity={0.85}
               onPress={() => setPhotoModalVisible(true)}
             >
-              <Camera size={22} color="#FFFFFF" />
+              <Camera size={20} color="#FFFFFF" />
             </TouchableOpacity>
           </View>
 
@@ -521,27 +521,28 @@ const styles = StyleSheet.create({
     paddingBottom: SPACING.xxl,
   },
   heroCard: {
-    backgroundColor: 'rgba(255,255,255,0.9)',
+    backgroundColor: '#FFFFFF',
     borderRadius: BORDER_RADIUS.lg,
     padding: SPACING.lg,
     marginBottom: SPACING.lg,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.7)',
+    borderColor: 'rgba(0,0,0,0.06)',
     ...SHADOWS.md,
   },
   brandRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    gap: SPACING.md,
+    alignItems: 'center',
+    position: 'relative',
   },
   welcomeBlock: {
     marginTop: SPACING.lg,
   },
   cameraButton: {
-    width: 54,
-    height: 54,
-    borderRadius: 27,
+    position: 'absolute',
+    right: 0,
+    top: 0,
+    width: 44,
+    height: 44,
+    borderRadius: 22,
     backgroundColor: MEDITATIVE_COLORS.primary.lavender,
     alignItems: 'center',
     justifyContent: 'center',
