@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
   },
   tipsContainer: {
     borderTopWidth: 1,
-    borderTopColor: MEDITATIVE_COLORS.text.tertiary + '30',
+    borderTopColor: MEDITATIVE_COLORS.neutral.lightGray,
     paddingTop: SPACING.sm,
   },
   tipsTitle: {

@@ -472,6 +472,7 @@ export default function HomeScreen() {
         <PhotoAnalysisModal
           visible={photoModalVisible}
           onClose={() => setPhotoModalVisible(false)}
+          mode="stool"
         />
       )}
 
