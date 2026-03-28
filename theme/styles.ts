@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { MEDITATIVE_COLORS } from './colors';
+import { MEDITATIVE_COLORS, DS } from './colors';
 
 export const SPACING = {
   xs: 4,
@@ -14,29 +14,30 @@ export const BORDER_RADIUS = {
   sm: 8,
   md: 16,
   lg: 24,
+  xl: 48,
   full: 999,
 } as const;
 
 export const SHADOWS = {
   sm: {
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.08,
-    shadowRadius: 2,
+    shadowColor: DS.onSurfaceVariant,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 6,
     elevation: 2,
   },
   md: {
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
+    shadowColor: DS.onSurfaceVariant,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.07,
+    shadowRadius: 14,
     elevation: 4,
   },
   lg: {
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.12,
-    shadowRadius: 12,
+    shadowColor: DS.onSurfaceVariant,
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.06,
+    shadowRadius: 30,
     elevation: 6,
   },
 } as const;
@@ -44,58 +45,60 @@ export const SHADOWS = {
 export const baseStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: MEDITATIVE_COLORS.backgrounds.light,
+    backgroundColor: DS.surfaceContainerLow,
   },
   contentContainer: {
     paddingHorizontal: SPACING.md,
     paddingVertical: SPACING.md,
   },
   card: {
-    backgroundColor: MEDITATIVE_COLORS.backgrounds.card,
-    borderRadius: BORDER_RADIUS.md,
+    backgroundColor: DS.surfaceContainerLowest,
+    borderRadius: BORDER_RADIUS.xl,
     padding: SPACING.md,
-    borderWidth: 1,
-    borderColor: MEDITATIVE_COLORS.neutral.lightGray,
-    ...SHADOWS.sm,
+    ...SHADOWS.md,
   },
   button: {
     paddingHorizontal: SPACING.md,
     paddingVertical: SPACING.sm,
-    borderRadius: BORDER_RADIUS.md,
+    borderRadius: BORDER_RADIUS.full,
     alignItems: 'center',
     justifyContent: 'center',
-    minHeight: 44,
+    minHeight: 48,
   },
   text: {
-    color: MEDITATIVE_COLORS.text.primary,
+    color: DS.onSurface,
     fontSize: 16,
     lineHeight: 24,
   },
   label: {
-    color: MEDITATIVE_COLORS.text.primary,
-    fontSize: 14,
-    lineHeight: 21,
-    fontWeight: '500',
+    color: DS.primary,
+    fontSize: 12,
+    lineHeight: 18,
+    fontWeight: '600',
+    letterSpacing: 0.3,
   },
   buttonText: {
     fontSize: 16,
-    fontWeight: '600',
-    color: '#FFF8DC',
+    fontWeight: '700',
+    color: DS.onPrimary,
     lineHeight: 24,
   },
   input: {
-    backgroundColor: MEDITATIVE_COLORS.backgrounds.card,
-    borderRadius: BORDER_RADIUS.md,
+    backgroundColor: DS.surfaceContainerLowest,
+    borderRadius: BORDER_RADIUS.lg,
     paddingHorizontal: SPACING.md,
-    paddingVertical: SPACING.sm,
-    color: MEDITATIVE_COLORS.text.primary,
+    paddingVertical: 14,
+    color: DS.onSurface,
     fontSize: 16,
-    borderWidth: 1,
-    borderColor: MEDITATIVE_COLORS.neutral.lightGray,
+    shadowColor: DS.onSurface,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.02,
+    shadowRadius: 4,
+    elevation: 1,
   },
 });
 
-export const buttonStyles = (backgroundColor: string = MEDITATIVE_COLORS.primary.lavender) =>
+export const buttonStyles = (backgroundColor: string = DS.primary) =>
   StyleSheet.create({
     primary: {
       ...baseStyles.button,
@@ -103,14 +106,12 @@ export const buttonStyles = (backgroundColor: string = MEDITATIVE_COLORS.primary
     },
     secondary: {
       ...baseStyles.button,
-      backgroundColor: 'transparent',
-      borderWidth: 1,
-      borderColor: backgroundColor,
+      backgroundColor: DS.secondaryContainer,
     },
     small: {
       ...baseStyles.button,
       paddingHorizontal: SPACING.sm,
       paddingVertical: SPACING.xs,
-      minHeight: 32,
+      minHeight: 36,
     },
   });

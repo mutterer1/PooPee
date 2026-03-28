@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, RefreshControl } 
 import { useAuth } from '@/lib/auth.context';
 import { useEffect, useMemo, useState } from 'react';
 import { supabase } from '@/lib/supabase';
-import { MEDITATIVE_COLORS } from '@/theme/colors';
+import { DS, MEDITATIVE_COLORS } from '@/theme/colors';
 import { SPACING, BORDER_RADIUS, SHADOWS, baseStyles } from '@/theme/styles';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AchievementBadge from '@/components/AchievementBadge';
@@ -252,8 +252,8 @@ export default function HomeScreen() {
           <RefreshControl
             refreshing={refreshing}
             onRefresh={onRefresh}
-            tintColor={MEDITATIVE_COLORS.primary.lavender}
-            colors={[MEDITATIVE_COLORS.primary.lavender]}
+            tintColor={DS.primary}
+            colors={[DS.primary]}
           />
         }
       >
@@ -321,7 +321,7 @@ export default function HomeScreen() {
           <View style={[baseStyles.card, styles.insightCard]}>
             <View style={styles.insightHeader}>
               <View style={styles.insightIconWrap}>
-                <Sparkles size={16} color={MEDITATIVE_COLORS.primary.lavender} />
+                <Sparkles size={16} color={DS.primary} />
               </View>
               <Text style={styles.insightTitle}>Pattern Read</Text>
             </View>
@@ -458,7 +458,7 @@ export default function HomeScreen() {
         <View style={styles.section}>
           <View style={[baseStyles.card, styles.trustCard]}>
             <View style={styles.trustHeader}>
-              <Shield size={18} color={MEDITATIVE_COLORS.primary.lavender} />
+              <Shield size={18} color={DS.secondary} />
               <Text style={styles.trustTitle}>Helpful, not diagnostic</Text>
             </View>
             <Text style={styles.trustText}>
@@ -513,20 +513,18 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: MEDITATIVE_COLORS.backgrounds.light,
+    backgroundColor: DS.surfaceContainerLow,
   },
   scrollContent: {
     paddingHorizontal: SPACING.md,
-    paddingVertical: SPACING.md,
+    paddingTop: SPACING.md,
     paddingBottom: SPACING.xxl,
   },
   heroCard: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: BORDER_RADIUS.lg,
+    backgroundColor: DS.surfaceContainerLowest,
+    borderRadius: BORDER_RADIUS.xl,
     padding: SPACING.lg,
     marginBottom: SPACING.lg,
-    borderWidth: 1,
-    borderColor: 'rgba(0,0,0,0.06)',
     ...SHADOWS.md,
   },
   brandRow: {
@@ -545,21 +543,21 @@ const styles = StyleSheet.create({
     width: 44,
     height: 44,
     borderRadius: 22,
-    backgroundColor: MEDITATIVE_COLORS.primary.lavender,
+    backgroundColor: DS.primary,
     alignItems: 'center',
     justifyContent: 'center',
     ...SHADOWS.md,
   },
   greeting: {
     fontSize: 26,
-    fontWeight: '700',
-    color: MEDITATIVE_COLORS.text.primary,
+    fontWeight: '800',
+    color: DS.primary,
     letterSpacing: -0.5,
     lineHeight: 32,
   },
   subtitle: {
     fontSize: 15,
-    color: MEDITATIVE_COLORS.text.secondary,
+    color: DS.onSurfaceVariant,
     marginTop: SPACING.sm,
     lineHeight: 22,
   },
@@ -575,21 +573,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    backgroundColor: MEDITATIVE_COLORS.neutral.offWhite,
-    borderWidth: 1,
-    borderColor: MEDITATIVE_COLORS.neutral.lightGray,
+    backgroundColor: DS.primaryContainer,
     paddingHorizontal: 12,
     paddingVertical: 8,
     borderRadius: BORDER_RADIUS.full,
   },
   statusPillText: {
-    color: MEDITATIVE_COLORS.text.primary,
+    color: DS.primary,
     fontSize: 13,
-    fontWeight: '600',
+    fontWeight: '700',
   },
   heroHelperText: {
     fontSize: 12,
-    color: MEDITATIVE_COLORS.text.secondary,
+    color: DS.onSurfaceVariant,
   },
   statsGrid: {
     flexDirection: 'row',
@@ -606,20 +602,20 @@ const styles = StyleSheet.create({
   },
   statNumber: {
     fontSize: 30,
-    fontWeight: '700',
-    color: MEDITATIVE_COLORS.primary.lavender,
+    fontWeight: '800',
+    color: DS.primary,
     lineHeight: 34,
   },
   statTitle: {
     fontSize: 14,
     fontWeight: '600',
-    color: MEDITATIVE_COLORS.text.primary,
+    color: DS.onSurface,
     marginTop: SPACING.xs,
     textAlign: 'center',
   },
   statCaption: {
     fontSize: 11,
-    color: MEDITATIVE_COLORS.text.secondary,
+    color: DS.onSurfaceVariant,
     marginTop: 6,
     textAlign: 'center',
   },
@@ -634,19 +630,17 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 19,
-    fontWeight: '600',
-    color: MEDITATIVE_COLORS.text.primary,
+    fontWeight: '700',
+    color: DS.onSurface,
     marginBottom: SPACING.md,
   },
   sectionHint: {
     fontSize: 12,
-    color: MEDITATIVE_COLORS.text.secondary,
+    color: DS.onSurfaceVariant,
     fontWeight: '500',
   },
   insightCard: {
-    backgroundColor: '#FFFFFF',
-    borderWidth: 1,
-    borderColor: 'rgba(180, 167, 214, 0.3)',
+    backgroundColor: DS.primaryContainer,
   },
   insightHeader: {
     flexDirection: 'row',
@@ -658,18 +652,18 @@ const styles = StyleSheet.create({
     width: 28,
     height: 28,
     borderRadius: 14,
-    backgroundColor: 'rgba(180, 167, 214, 0.12)',
+    backgroundColor: DS.primary + '22',
     alignItems: 'center',
     justifyContent: 'center',
   },
   insightTitle: {
     fontSize: 15,
     fontWeight: '600',
-    color: MEDITATIVE_COLORS.text.primary,
+    color: DS.primary,
   },
   insightText: {
     fontSize: 14,
-    color: MEDITATIVE_COLORS.text.primary,
+    color: DS.onSurface,
     lineHeight: 22,
   },
   actionCard: {
@@ -685,12 +679,14 @@ const styles = StyleSheet.create({
     top: 0,
     bottom: 0,
     width: 5,
+    borderTopLeftRadius: BORDER_RADIUS.xl,
+    borderBottomLeftRadius: BORDER_RADIUS.xl,
   },
   actionIconWrap: {
     width: 42,
     height: 42,
     borderRadius: 21,
-    backgroundColor: MEDITATIVE_COLORS.neutral.offWhite,
+    backgroundColor: DS.surfaceContainerLow,
     alignItems: 'center',
     justifyContent: 'center',
     marginLeft: 6,
@@ -703,11 +699,11 @@ const styles = StyleSheet.create({
   actionTitle: {
     fontSize: 16,
     fontWeight: '600',
-    color: MEDITATIVE_COLORS.text.primary,
+    color: DS.onSurface,
   },
   actionDescription: {
     fontSize: 13,
-    color: MEDITATIVE_COLORS.text.secondary,
+    color: DS.onSurfaceVariant,
     marginTop: 4,
     lineHeight: 19,
   },
@@ -731,16 +727,16 @@ const styles = StyleSheet.create({
   recentTitle: {
     fontSize: 14,
     fontWeight: '600',
-    color: MEDITATIVE_COLORS.text.primary,
+    color: DS.onSurface,
   },
   recentSubtitle: {
     fontSize: 12,
-    color: MEDITATIVE_COLORS.text.secondary,
+    color: DS.onSurfaceVariant,
     marginTop: 2,
   },
   recentTime: {
     fontSize: 11,
-    color: MEDITATIVE_COLORS.text.secondary,
+    color: DS.onSurfaceVariant,
   },
   achievementsGrid: {
     flexDirection: 'row',
@@ -758,17 +754,16 @@ const styles = StyleSheet.create({
   emptyTitle: {
     fontSize: 15,
     fontWeight: '600',
-    color: MEDITATIVE_COLORS.text.primary,
+    color: DS.onSurface,
     marginBottom: 6,
   },
   emptyText: {
     fontSize: 13,
-    color: MEDITATIVE_COLORS.text.secondary,
+    color: DS.onSurfaceVariant,
     lineHeight: 20,
   },
   trustCard: {
-    backgroundColor: '#FFFFFF',
-    borderColor: 'rgba(180, 167, 214, 0.25)',
+    backgroundColor: DS.secondaryContainer,
   },
   trustHeader: {
     flexDirection: 'row',
@@ -779,11 +774,11 @@ const styles = StyleSheet.create({
   trustTitle: {
     fontSize: 15,
     fontWeight: '600',
-    color: MEDITATIVE_COLORS.text.primary,
+    color: DS.onSecondaryContainer,
   },
   trustText: {
     fontSize: 13,
-    color: MEDITATIVE_COLORS.text.secondary,
+    color: DS.onSecondaryContainer,
     lineHeight: 20,
   },
 });

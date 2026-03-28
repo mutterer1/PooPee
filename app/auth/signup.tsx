@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useAuth } from '@/lib/auth.context';
-import { MEDITATIVE_COLORS } from '@/theme/colors';
+import { DS, MEDITATIVE_COLORS } from '@/theme/colors';
 import { SPACING, BORDER_RADIUS, baseStyles, buttonStyles } from '@/theme/styles';
 import PooPeeLogo from '@/components/PooPeeLogo';
 
@@ -46,7 +46,7 @@ export default function SignUpScreen() {
     router.push('/auth/login');
   };
 
-  const styles = buttonStyles(MEDITATIVE_COLORS.primary.lavender);
+  const styles = buttonStyles(DS.primary);
 
   return (
     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={localStyles.container}>
@@ -64,7 +64,7 @@ export default function SignUpScreen() {
             <TextInput
               style={baseStyles.input}
               placeholder="Your name"
-              placeholderTextColor={MEDITATIVE_COLORS.neutral.mediumGray}
+              placeholderTextColor={DS.outline}
               value={displayName}
               onChangeText={(text) => {
                 setDisplayName(text);
@@ -79,7 +79,7 @@ export default function SignUpScreen() {
             <TextInput
               style={baseStyles.input}
               placeholder="your@email.com"
-              placeholderTextColor={MEDITATIVE_COLORS.neutral.mediumGray}
+              placeholderTextColor={DS.outline}
               value={email}
               onChangeText={(text) => {
                 setEmail(text);
@@ -96,7 +96,7 @@ export default function SignUpScreen() {
             <TextInput
               style={baseStyles.input}
               placeholder="At least 6 characters"
-              placeholderTextColor={MEDITATIVE_COLORS.neutral.mediumGray}
+              placeholderTextColor={DS.outline}
               value={password}
               onChangeText={(text) => {
                 setPassword(text);
@@ -112,7 +112,7 @@ export default function SignUpScreen() {
             <TextInput
               style={baseStyles.input}
               placeholder="Confirm your password"
-              placeholderTextColor={MEDITATIVE_COLORS.neutral.mediumGray}
+              placeholderTextColor={DS.outline}
               value={confirmPassword}
               onChangeText={(text) => {
                 setConfirmPassword(text);
@@ -146,7 +146,7 @@ export default function SignUpScreen() {
 const localStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: MEDITATIVE_COLORS.backgrounds.light,
+    backgroundColor: DS.surfaceContainerLow,
   },
   scrollContent: {
     flexGrow: 1,
@@ -160,7 +160,7 @@ const localStyles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 15,
-    color: MEDITATIVE_COLORS.text.secondary,
+    color: DS.onSurfaceVariant,
     marginTop: SPACING.sm,
     textAlign: 'center',
     maxWidth: 320,
@@ -172,25 +172,25 @@ const localStyles = StyleSheet.create({
     marginBottom: SPACING.lg,
   },
   errorText: {
-    backgroundColor: MEDITATIVE_COLORS.semantic.error,
-    color: '#FFF',
+    backgroundColor: DS.tertiaryFixed,
+    color: DS.onTertiaryFixed,
     padding: SPACING.md,
-    borderRadius: BORDER_RADIUS.md,
+    borderRadius: BORDER_RADIUS.lg,
     marginBottom: SPACING.md,
     fontSize: 14,
   },
   divider: {
     height: 1,
-    backgroundColor: MEDITATIVE_COLORS.neutral.lightGray,
+    backgroundColor: DS.surfaceContainerHighest,
     marginVertical: SPACING.lg,
   },
   linkText: {
     textAlign: 'center',
-    color: MEDITATIVE_COLORS.text.primary,
+    color: DS.onSurface,
     fontSize: 14,
   },
   linkBold: {
     fontWeight: '700',
-    color: MEDITATIVE_COLORS.primary.lavender,
+    color: DS.primary,
   },
 });

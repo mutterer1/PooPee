@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useAuth } from '@/lib/auth.context';
-import { MEDITATIVE_COLORS } from '@/theme/colors';
+import { DS, MEDITATIVE_COLORS } from '@/theme/colors';
 import { SPACING, BORDER_RADIUS, baseStyles, buttonStyles } from '@/theme/styles';
 import PooPeeLogo from '@/components/PooPeeLogo';
 
@@ -23,7 +23,7 @@ export default function LoginScreen() {
   const { signIn } = useAuth();
   const router = useRouter();
 
-  const styles = buttonStyles(MEDITATIVE_COLORS.primary.lavender);
+  const styles = buttonStyles(DS.primary);
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -66,7 +66,7 @@ export default function LoginScreen() {
             <TextInput
               style={baseStyles.input}
               placeholder="your@email.com"
-              placeholderTextColor={MEDITATIVE_COLORS.neutral.mediumGray}
+              placeholderTextColor={DS.outline}
               value={email}
               onChangeText={(text) => {
                 setEmail(text);
@@ -83,7 +83,7 @@ export default function LoginScreen() {
             <TextInput
               style={baseStyles.input}
               placeholder="Enter your password"
-              placeholderTextColor={MEDITATIVE_COLORS.neutral.mediumGray}
+              placeholderTextColor={DS.outline}
               value={password}
               onChangeText={(text) => {
                 setPassword(text);
@@ -120,7 +120,7 @@ export default function LoginScreen() {
 const localStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: MEDITATIVE_COLORS.backgrounds.light,
+    backgroundColor: DS.surfaceContainerLow,
   },
   scrollContent: {
     flexGrow: 1,
@@ -136,7 +136,7 @@ const localStyles = StyleSheet.create({
   subtitle: {
     fontSize: 16,
     lineHeight: 22,
-    color: MEDITATIVE_COLORS.text.secondary,
+    color: DS.onSurfaceVariant,
     marginTop: 14,
     textAlign: 'center',
     maxWidth: 320,
@@ -148,10 +148,10 @@ const localStyles = StyleSheet.create({
     marginBottom: 18,
   },
   errorText: {
-    backgroundColor: MEDITATIVE_COLORS.semantic.error,
-    color: '#FFF',
+    backgroundColor: DS.tertiaryFixed,
+    color: DS.onTertiaryFixed,
     padding: SPACING.md,
-    borderRadius: BORDER_RADIUS.md,
+    borderRadius: BORDER_RADIUS.lg,
     marginBottom: SPACING.md,
     fontSize: 14,
   },
@@ -160,16 +160,16 @@ const localStyles = StyleSheet.create({
   },
   divider: {
     height: 1,
-    backgroundColor: MEDITATIVE_COLORS.neutral.lightGray,
+    backgroundColor: DS.surfaceContainerHighest,
     marginVertical: SPACING.lg,
   },
   linkText: {
     textAlign: 'center',
-    color: MEDITATIVE_COLORS.text.primary,
+    color: DS.onSurface,
     fontSize: 15,
   },
   linkBold: {
     fontWeight: '700',
-    color: MEDITATIVE_COLORS.primary.lavender,
+    color: DS.primary,
   },
 });
