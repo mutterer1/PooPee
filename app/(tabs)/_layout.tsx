@@ -5,18 +5,10 @@ import { View, Text, StyleSheet } from 'react-native';
 import PoopIcon from '@/components/PoopIcon';
 import { LinearGradient } from 'expo-linear-gradient';
 
-function GradientTabBar({ children }: { children: React.ReactNode }) {
-  return (
-    <LinearGradient
-      colors={[DS.primary, DS.secondary]}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 0 }}
-      style={styles.gradientBar}
-    >
-      {children}
-    </LinearGradient>
-  );
-}
+const TAB_GRADIENT: [string, string] = [
+  'rgba(99,58,127,0.82)',
+  'rgba(79,100,75,0.82)',
+];
 
 function TabIcon({
   icon,
@@ -56,7 +48,7 @@ export default function TabsLayout() {
         tabBarItemStyle: styles.tabBarItem,
         tabBarBackground: () => (
           <LinearGradient
-            colors={[DS.primary, DS.secondary]}
+            colors={TAB_GRADIENT}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
             style={StyleSheet.absoluteFill}
@@ -128,10 +120,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  gradientBar: {
-    flex: 1,
-    flexDirection: 'row',
   },
   tabItem: {
     alignItems: 'center',
