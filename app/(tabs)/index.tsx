@@ -523,7 +523,7 @@ const styles = StyleSheet.create({
     paddingBottom: SPACING.xxl,
   },
   heroCard: {
-    backgroundColor: DS.surfaceContainerLowest,
+    backgroundColor: DS.surface,
     borderRadius: BORDER_RADIUS.xl,
     padding: SPACING.lg,
     marginBottom: SPACING.lg,
