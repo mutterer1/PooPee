@@ -261,7 +261,7 @@ export default function HomeScreen() {
       >
         <View style={styles.heroCard}>
           <View style={styles.brandRow}>
-            <PooPeeLogo size={170} showText={true} stacked={true} />
+            <PooPeeLogo size={80} showText={true} stacked={true} />
 
             <TouchableOpacity
               style={styles.cameraButton}
@@ -523,14 +523,16 @@ const styles = StyleSheet.create({
     paddingBottom: SPACING.xxl,
   },
   heroCard: {
-    backgroundColor: DS.surfaceContainerLow,
+    backgroundColor: '#FFFFFF',
     borderRadius: BORDER_RADIUS.xl,
     padding: SPACING.lg,
     marginBottom: SPACING.lg,
+    overflow: 'hidden',
     ...SHADOWS.md,
   },
   brandRow: {
     alignItems: 'center',
+    justifyContent: 'center',
     position: 'relative',
     paddingHorizontal: 52,
   },
