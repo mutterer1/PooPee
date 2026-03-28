@@ -55,7 +55,7 @@ export default function LoginScreen() {
     >
       <ScrollView contentContainerStyle={localStyles.scrollContent} showsVerticalScrollIndicator={false}>
         <View style={localStyles.header}>
-          <PooPeeLogo size={240} showText={true} stacked={true} />
+          <PooPeeLogo height={120} />
           <Text style={localStyles.subtitle}>
             Smarter tracking for life&apos;s most overlooked signals.
           </Text>

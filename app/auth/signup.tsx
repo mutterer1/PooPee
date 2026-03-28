@@ -55,7 +55,7 @@ export default function SignUpScreen() {
     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={localStyles.container}>
       <ScrollView contentContainerStyle={localStyles.scrollContent} showsVerticalScrollIndicator={false}>
         <View style={localStyles.header}>
-          <PooPeeLogo size={200} stacked />
+          <PooPeeLogo height={120} />
           <Text style={localStyles.subtitle}>Smarter Tracking for Life's Most Overlooked Signals</Text>
         </View>
 
