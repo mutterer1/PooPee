@@ -53,6 +53,7 @@ export default function TabsLayout() {
         headerShown: false,
         tabBarShowLabel: false,
         tabBarStyle: styles.tabBar,
+        tabBarItemStyle: styles.tabBarItem,
         tabBarBackground: () => (
           <LinearGradient
             colors={[DS.primary, DS.secondary]}
@@ -122,6 +123,13 @@ const styles = StyleSheet.create({
     paddingBottom: 0,
     paddingTop: 0,
     backgroundColor: 'transparent',
+  },
+  tabBarItem: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 0,
+    paddingBottom: 0,
   },
   gradientBar: {
     flex: 1,
