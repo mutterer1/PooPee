@@ -5,85 +5,88 @@ interface PooPeeLogoProps {
   size?: number;
 }
 
-function LogoMark({ height = 72 }: { height?: number }) {
-  const vbW = 100;
-  const vbH = 170;
-  const width = (vbW / vbH) * height;
+function LogoMark({ height = 64 }: { height?: number }) {
+  // Viewbox derived from pixel analysis of PooPeeHealthLogo.png
+  // Mark occupies x=314-766, y=328-682 on the 1536x1024 canvas (452×354px)
+  // Normalised to 100×78 viewBox (maintaining 452:354 ≈ 1.277:1 ratio)
+  const VW = 100;
+  const VH = 78;
+  const width = (VW / VH) * height;
 
   return (
-    <Svg width={width} height={height} viewBox={`0 0 ${vbW} ${vbH}`} fill="none">
-      {/*
-        Coordinates derived from sampling the original Figma PNG (1601x600).
-        Mark occupies approx x=158–448, y=42–542 on that canvas.
-        Normalized to 100×170 viewBox:
-          scaleX = 100 / (448-158) = 100/290 ≈ 0.345
-          scaleY = 170 / (542-42)  = 170/500 = 0.34
-          offsetX = -158 * 0.345 = -54.5
-          offsetY = -42  * 0.34  = -14.3
-      */}
-
-      {/* Sage green teardrop — left, tall, rounded at bottom */}
+    <Svg width={width} height={height} viewBox={`0 0 ${VW} ${VH}`}>
+      {/* ── Green teardrop (left, tall) ── */}
+      {/* px bounds: x=4-144, y=0-280 → norm x=0.9-31.9, y=0-61.6 */}
       <Path
-        d="
-          M 0 14
-          C 0 6 6 0 14 0
-          C 22 0 28 6 28 14
-          L 28 130
-          C 28 148 20 160 10 162
-          C 4 162 0 158 0 152
+        d={`
+          M 6 0
+          C 2 0 0 3 0 7
+          L 0 57
+          C 0 63 2 68 5 71
+          C 7 73 10 74 13 73
+          C 17 72 20 68 20 62
+          L 20 28
+          C 22 24 26 21 30 20
+          C 33 19 32 16 30 15
+          C 24 12 20 7 20 1
+          C 20 0 13 0 6 0
           Z
-        "
-        fill="#aab4a0"
+        `}
+        fill="#a8b0a0"
       />
 
-      {/* Soft coral/peach teardrop — bottom centre, small */}
+      {/* ── Lavender teardrop (upper right, rounded top, tapers down) ── */}
+      {/* px bounds: x=124-272, y=0-230 → norm x=27.4-60.2, y=0-50.6 */}
       <Path
-        d="
-          M 14 118
-          C 8 118 4 124 4 132
-          C 4 148 12 162 24 166
-          C 34 169 44 164 48 154
-          C 52 144 48 132 40 126
-          C 36 122 30 118 24 118
+        d={`
+          M 28 22
+          C 20 20 18 14 20 8
+          C 22 3 27 0 33 0
+          C 44 0 58 8 60 20
+          C 62 30 56 40 48 44
+          C 44 46 40 47 36 48
+          L 36 52
+          C 36 54 34 56 32 56
+          C 30 56 28 54 28 52
+          L 28 22
           Z
-        "
-        fill="#f5beaa"
+        `}
+        fill="#a890b8"
       />
 
-      {/* Lavender teardrop — right, slightly shorter, overlapping green */}
+      {/* ── Coral/peach blob (lower, between the two teardrops) ── */}
+      {/* px bounds: x=52-144, y=212-354 → norm x=11.5-31.9, y=46.6-78 */}
       <Path
-        d="
-          M 28 6
-          C 28 2 38 0 48 0
-          C 68 0 82 10 82 24
-          C 82 32 76 40 68 44
-          L 58 48
-          L 58 126
-          C 58 140 50 150 40 152
-          C 36 152 32 150 28 148
-          L 28 6
+        d={`
+          M 14 50
+          C 10 50 7 53 7 57
+          C 7 65 10 72 15 76
+          C 18 78 22 78 25 76
+          C 30 73 32 67 30 61
+          C 29 56 26 51 21 50
+          C 19 50 16 50 14 50
           Z
-        "
-        fill="#aa91b9"
+        `}
+        fill="#f0b8a8"
       />
 
-      {/* White S-curve gap between the two teardrops */}
+      {/* ── White S-curve gap between the shapes ── */}
+      {/* Sits at the border of green and lavender, x≈17-32, y≈0-56 */}
       <Path
-        d="
-          M 28 12
-          C 30 18 31 28 30 40
-          C 29 52 26 60 26 72
-          C 26 84 29 92 30 102
-          C 31 112 30 122 28 132
-          L 28 148
-          C 30 150 32 150 34 148
-          C 36 140 37 128 36 116
-          C 35 104 32 96 32 84
-          C 32 72 35 64 36 52
-          C 37 40 36 28 34 18
-          C 33 12 30 8 28 6
+        d={`
+          M 20 1
+          C 22 5 24 10 25 16
+          C 26 22 26 28 25 34
+          C 24 40 22 44 22 48
+          C 22 52 24 56 26 58
+          C 26 60 28 62 28 52
+          C 26 50 25 46 25 42
+          C 26 38 28 34 28 28
+          C 29 22 29 16 28 10
+          C 27 6 26 2 24 0
+          C 22 0 20 0 20 1
           Z
-        "
+        `}
         fill="#FFFFFF"
       />
     </Svg>
@@ -92,18 +95,18 @@ function LogoMark({ height = 72 }: { height?: number }) {
 
 export default function PooPeeLogo({ size = 100 }: PooPeeLogoProps) {
   const scale = size / 100;
-  const markHeight = 64 * scale;
-  const titleSize = 31 * scale;
-  const subtitleSize = 27 * scale;
+  const markHeight = 56 * scale;
+  const titleSize = 28 * scale;
+  const subtitleSize = 24 * scale;
 
   return (
     <View style={styles.row}>
       <LogoMark height={markHeight} />
-      <View style={[styles.textBlock, { marginLeft: 14 * scale }]}>
+      <View style={[styles.textBlock, { marginLeft: 12 * scale }]}>
         <Text
           style={[
             styles.title,
-            { fontSize: titleSize, lineHeight: titleSize * 1.15 },
+            { fontSize: titleSize, lineHeight: titleSize * 1.1 },
           ]}
         >
           PooPee
@@ -125,19 +128,18 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
   },
   textBlock: {
     justifyContent: 'center',
   },
   title: {
     fontWeight: '700',
-    color: '#504b5a',
-    letterSpacing: -0.5,
+    color: '#53505e',
+    letterSpacing: -0.3,
   },
   subtitle: {
     fontWeight: '400',
-    color: '#78787d',
-    letterSpacing: 0.2,
+    color: '#75767d',
+    letterSpacing: 0.1,
   },
 });
