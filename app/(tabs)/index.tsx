@@ -261,7 +261,7 @@ export default function HomeScreen() {
       >
         <View style={styles.heroCard}>
           <View style={styles.brandRow}>
-            <PooPeeLogo size={80} showText={true} stacked={true} />
+            <PooPeeLogo size={120} showText={true} stacked={true} />
 
             <TouchableOpacity
               style={styles.cameraButton}

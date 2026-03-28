@@ -15,10 +15,10 @@ export default function PooPeeLogo({ size = 120, showText = true, stacked = fals
 
   if (stacked) {
     return (
-      <View style={styles.stackedContainer}>
+      <View style={[styles.stackedContainer, styles.whiteBg]}>
         <Image
           source={require('@/assets/images/branding/logo.png')}
-          style={{ width: logoWidth, height: logoHeight }}
+          style={{ width: logoWidth, height: logoHeight, backgroundColor: '#FFFFFF' }}
           resizeMode="contain"
         />
         {showText && (
@@ -33,7 +33,7 @@ export default function PooPeeLogo({ size = 120, showText = true, stacked = fals
   return (
     <Image
       source={require('@/assets/images/branding/logo.png')}
-      style={{ width: logoWidth, height: logoHeight }}
+      style={{ width: logoWidth, height: logoHeight, backgroundColor: '#FFFFFF' }}
       resizeMode="contain"
     />
   );
@@ -42,6 +42,9 @@ export default function PooPeeLogo({ size = 120, showText = true, stacked = fals
 const styles = StyleSheet.create({
   stackedContainer: {
     alignItems: 'center',
+  },
+  whiteBg: {
+    backgroundColor: '#FFFFFF',
   },
   tagline: {
     color: '#7d7679',
