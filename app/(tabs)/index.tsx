@@ -261,7 +261,7 @@ export default function HomeScreen() {
       >
         <View style={styles.heroCard}>
           <View style={styles.brandRow}>
-            <PooPeeLogo size={120} showText={true} stacked={true} />
+            <PooPeeLogo size={100} />
 
             <TouchableOpacity
               style={styles.cameraButton}
@@ -532,9 +532,9 @@ const styles = StyleSheet.create({
   },
   brandRow: {
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
     position: 'relative',
-    paddingHorizontal: 52,
   },
   welcomeBlock: {
     marginTop: SPACING.lg,
