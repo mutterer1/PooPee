@@ -532,14 +532,16 @@ const styles = StyleSheet.create({
   brandRow: {
     alignItems: 'center',
     position: 'relative',
+    paddingHorizontal: 52,
   },
   welcomeBlock: {
     marginTop: SPACING.lg,
   },
   cameraButton: {
     position: 'absolute',
-    right: 0,
-    top: 0,
+    right: 4,
+    top: '50%',
+    marginTop: -22,
     width: 44,
     height: 44,
     borderRadius: 22,
