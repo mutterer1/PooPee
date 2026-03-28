@@ -7,6 +7,7 @@ import BowelMovementModal from '@/components/BowelMovementModal';
 import UrinationModal from '@/components/UrinationModal';
 import MealModal from '@/components/MealModal';
 import BackgroundWatermark from '@/components/BackgroundWatermark';
+import GradientBackground from '@/components/GradientBackground';
 import ChatbotButton from '@/components/ChatbotButton';
 import ChatbotCompanion from '@/components/ChatbotCompanion';
 import PhotoAnalysisModal from '@/components/PhotoAnalysisModal';
@@ -115,6 +116,7 @@ export default function TrackScreen() {
 
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
+      <GradientBackground />
       <BackgroundWatermark />
 
       <ScrollView
@@ -298,7 +300,7 @@ export default function TrackScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: MEDITATIVE_COLORS.backgrounds.light,
+    backgroundColor: 'transparent',
   },
   scrollContent: {
     paddingHorizontal: SPACING.md,

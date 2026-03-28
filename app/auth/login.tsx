@@ -14,6 +14,7 @@ import { useAuth } from '@/lib/auth.context';
 import { DS, MEDITATIVE_COLORS } from '@/theme/colors';
 import { SPACING, BORDER_RADIUS, baseStyles, buttonStyles } from '@/theme/styles';
 import PooPeeLogo from '@/components/PooPeeLogo';
+import GradientBackground from '@/components/GradientBackground';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
@@ -46,6 +47,8 @@ export default function LoginScreen() {
   };
 
   return (
+    <View style={localStyles.root}>
+      <GradientBackground />
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={localStyles.container}
@@ -114,13 +117,17 @@ export default function LoginScreen() {
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
+    </View>
   );
 }
 
 const localStyles = StyleSheet.create({
+  root: {
+    flex: 1,
+  },
   container: {
     flex: 1,
-    backgroundColor: DS.surfaceContainerLow,
+    backgroundColor: 'transparent',
   },
   scrollContent: {
     flexGrow: 1,

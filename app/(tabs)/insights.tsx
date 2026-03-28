@@ -6,6 +6,7 @@ import { DS, MEDITATIVE_COLORS } from '@/theme/colors';
 import { SPACING, BORDER_RADIUS, SHADOWS, baseStyles } from '@/theme/styles';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import BackgroundWatermark from '@/components/BackgroundWatermark';
+import GradientBackground from '@/components/GradientBackground';
 import ChatbotButton from '@/components/ChatbotButton';
 import ChatbotCompanion from '@/components/ChatbotCompanion';
 import { buildInsightSummary } from '@/lib/insights';
@@ -130,6 +131,7 @@ export default function InsightsScreen() {
 
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
+      <GradientBackground />
       <BackgroundWatermark />
       <ScrollView
         contentContainerStyle={styles.scrollContent}
@@ -258,7 +260,7 @@ export default function InsightsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: DS.surfaceContainerLow,
+    backgroundColor: 'transparent',
   },
   scrollContent: {
     paddingHorizontal: SPACING.md,

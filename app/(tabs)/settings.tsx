@@ -7,6 +7,7 @@ import { SPACING, BORDER_RADIUS, baseStyles } from '@/theme/styles';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LogOut } from 'lucide-react-native';
 import BackgroundWatermark from '@/components/BackgroundWatermark';
+import GradientBackground from '@/components/GradientBackground';
 
 interface ChatbotPreferences {
   enabled: boolean;
@@ -79,6 +80,7 @@ export default function SettingsScreen() {
 
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
+      <GradientBackground />
       <BackgroundWatermark />
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
@@ -177,7 +179,7 @@ export default function SettingsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: MEDITATIVE_COLORS.backgrounds.light,
+    backgroundColor: 'transparent',
   },
   scrollContent: {
     paddingHorizontal: SPACING.md,

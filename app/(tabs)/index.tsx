@@ -12,6 +12,7 @@ import BowelMovementModal from '@/components/BowelMovementModal';
 import UrinationModal from '@/components/UrinationModal';
 import MealModal from '@/components/MealModal';
 import BackgroundWatermark from '@/components/BackgroundWatermark';
+import GradientBackground from '@/components/GradientBackground';
 import ChatbotButton from '@/components/ChatbotButton';
 import ChatbotCompanion from '@/components/ChatbotCompanion';
 import PooPeeLogo from '@/components/PooPeeLogo';
@@ -243,6 +244,7 @@ export default function HomeScreen() {
 
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
+      <GradientBackground />
       <BackgroundWatermark />
 
       <ScrollView
@@ -513,7 +515,7 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: DS.surfaceContainerLow,
+    backgroundColor: 'transparent',
   },
   scrollContent: {
     paddingHorizontal: SPACING.md,
