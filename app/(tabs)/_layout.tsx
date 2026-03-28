@@ -126,16 +126,20 @@ const styles = StyleSheet.create({
   },
   tabBarItem: {
     flex: 1,
+    height: 72,
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: 0,
     paddingBottom: 0,
+    marginTop: 0,
+    marginBottom: 0,
   },
   gradientBar: {
     flex: 1,
     flexDirection: 'row',
   },
   tabItem: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     gap: 3,
