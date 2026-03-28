@@ -120,8 +120,8 @@ const styles = StyleSheet.create({
     borderTopWidth: 0,
     elevation: 0,
     height: 72,
-    paddingBottom: 9,
-    paddingTop: 9,
+    paddingBottom: 8,
+    paddingTop: 10,
     backgroundColor: 'transparent',
   },
   tabBarItem: {
