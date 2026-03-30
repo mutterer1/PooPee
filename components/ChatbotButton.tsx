@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useRef, useState } from 'react';
+import { StyleSheet, TouchableOpacity, View, PanResponder, Animated } from 'react-native';
 import { MessageCircle } from 'lucide-react-native';
 import { MEDITATIVE_COLORS } from '@/theme/colors';
 import { SHADOWS } from '@/theme/styles';
@@ -11,18 +11,59 @@ interface ChatbotButtonProps {
 }
 
 export default function ChatbotButton({ onPress }: ChatbotButtonProps) {
+  const pan = useRef(new Animated.ValueXY({ x: 0, y: 0 })).current;
+  const [isDragging, setIsDragging] = useState(false);
+
+  const panResponder = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onMoveShouldSetPanResponder: () => true,
+      onPanResponderGrant: () => {
+        setIsDragging(true);
+      },
+      onPanResponderMove: Animated.event(
+        [null, { dx: pan.x, dy: pan.y }],
+        { useNativeDriver: false }
+      ),
+      onPanResponderRelease: (evt, gestureState) => {
+        setIsDragging(false);
+        if (Math.abs(gestureState.dx) < 5 && Math.abs(gestureState.dy) < 5) {
+          onPress();
+        }
+        Animated.spring(pan, {
+          toValue: { x: 0, y: 0 },
+          useNativeDriver: false,
+        }).start();
+      },
+    })
+  ).current;
+
   return (
-    <TouchableOpacity
-      style={styles.button}
-      onPress={onPress}
-      activeOpacity={0.85}
-      accessible={true}
-      accessibilityRole="button"
-      accessibilityLabel="Open chatbot assistant"
-      accessibilityHint="Double tap to open chatbot companion for guidance"
+    <Animated.View
+      style={[
+        styles.button,
+        {
+          transform: [
+            { translateX: pan.x },
+            { translateY: pan.y },
+          ],
+          opacity: isDragging ? 0.8 : 1,
+        },
+      ]}
+      {...panResponder.panHandlers}
     >
-      <MessageCircle size={22} color="#FFFFFF" />
-    </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.buttonTouchable}
+        onPress={onPress}
+        activeOpacity={0.85}
+        accessible={true}
+        accessibilityRole="button"
+        accessibilityLabel="Open chatbot assistant"
+        accessibilityHint="Drag to move or double tap to open chatbot companion for guidance"
+      >
+        <MessageCircle size={22} color="#FFFFFF" />
+      </TouchableOpacity>
+    </Animated.View>
   );
 }
 
@@ -39,5 +80,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     zIndex: 999,
     ...SHADOWS.lg,
+  },
+  buttonTouchable: {
+    width: BUTTON_SIZE,
+    height: BUTTON_SIZE,
+    borderRadius: BUTTON_SIZE / 2,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
