@@ -67,7 +67,6 @@ export default function PhotoAnalysisModal({ visible, onClose, mode, onStoolAnal
         setShowCamera(false);
       }
     } catch (error) {
-      console.error('Error taking picture:', error);
       Alert.alert('Error', 'Failed to capture photo');
     }
   };
@@ -144,7 +143,6 @@ export default function PhotoAnalysisModal({ visible, onClose, mode, onStoolAnal
         }
       }
     } catch (error) {
-      console.error('Error analyzing photo:', error);
       Alert.alert('Error', 'Failed to analyze photo. Please try again.');
       setAnalyzing(false);
     }
@@ -277,34 +275,6 @@ const styles = StyleSheet.create({
   },
   placeholder: {
     width: 40,
-  },
-  typeSelector: {
-    flexDirection: 'row',
-    paddingHorizontal: SPACING.md,
-    paddingVertical: SPACING.md,
-    gap: SPACING.sm,
-  },
-  typeButton: {
-    flex: 1,
-    paddingVertical: SPACING.sm,
-    paddingHorizontal: SPACING.md,
-    borderRadius: BORDER_RADIUS.md,
-    backgroundColor: MEDITATIVE_COLORS.backgrounds.card,
-    alignItems: 'center',
-    borderWidth: 2,
-    borderColor: 'transparent',
-  },
-  typeButtonActive: {
-    backgroundColor: MEDITATIVE_COLORS.primary.lavender + '20',
-    borderColor: MEDITATIVE_COLORS.primary.lavender,
-  },
-  typeButtonText: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: MEDITATIVE_COLORS.text.secondary,
-  },
-  typeButtonTextActive: {
-    color: MEDITATIVE_COLORS.primary.lavender,
   },
   camera: {
     flex: 1,

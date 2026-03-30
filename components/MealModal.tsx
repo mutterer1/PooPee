@@ -83,11 +83,9 @@ export default function MealModal({ visible, onClose, onSuccess, prefilledData }
       ]).select();
 
       if (error) {
-        console.error('Database error:', error);
         throw error;
       }
 
-      console.log('Meal saved successfully:', data);
       resetForm();
       onSuccess?.();
       setShowSuccess(true);
@@ -95,7 +93,6 @@ export default function MealModal({ visible, onClose, onSuccess, prefilledData }
         onClose();
       }, 2500);
     } catch (error: any) {
-      console.error('Save error:', error);
       Alert.alert('Error', error?.message || 'Failed to save meal. Please try again.');
     } finally {
       setSaving(false);

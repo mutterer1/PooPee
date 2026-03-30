@@ -37,8 +37,8 @@ export default function SettingsScreen() {
         if (data) {
           setPreferences(data);
         }
-      } catch (error) {
-        console.error('Error loading preferences:', error);
+      } catch {
+        // Preferences not available
       } finally {
         setLoading(false);
       }
@@ -58,23 +58,16 @@ export default function SettingsScreen() {
         .from('chatbot_preferences')
         .update(updates)
         .eq('user_id', user.id);
-    } catch (error) {
-      console.error('Error updating preferences:', error);
+    } catch {
       setPreferences(preferences);
     }
   };
 
   const handleLogout = async () => {
     try {
-      console.log('Attempting to sign out...');
-      const { error } = await signOut();
-      if (error) {
-        console.error('Sign out error:', error);
-      } else {
-        console.log('Sign out successful');
-      }
-    } catch (error) {
-      console.error('Unexpected sign out error:', error);
+      await signOut();
+    } catch {
+      // Sign out failed
     }
   };
 

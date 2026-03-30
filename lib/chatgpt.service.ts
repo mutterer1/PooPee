@@ -58,7 +58,6 @@ export async function analyzeWithChatGPT(
     const result: AnalysisResult = await response.json();
     return result;
   } catch (error) {
-    console.error('ChatGPT API Error:', error);
     return {
       success: false,
       message: 'Unable to get AI analysis. Please try again.',
@@ -67,73 +66,6 @@ export async function analyzeWithChatGPT(
   }
 }
 
-export async function saveConversation(
-  userId: string,
-  messages: ChatbotMessage[]
-): Promise<boolean> {
-  try {
-    const { data: conversation, error: convError } = await supabase
-      .from('chatbot_conversations')
-      .insert([{ user_id: userId }])
-      .select()
-      .maybeSingle();
-
-    if (convError) throw convError;
-    if (!conversation) throw new Error('Failed to create conversation');
-
-    const messagesToInsert = messages.map((msg) => ({
-      conversation_id: conversation.id,
-      role: msg.role,
-      content: msg.content,
-    }));
-
-    const { error: msgError } = await supabase
-      .from('chatbot_messages')
-      .insert(messagesToInsert);
-
-    if (msgError) throw msgError;
-    return true;
-  } catch (error) {
-    console.error('Save conversation error:', error);
-    return false;
-  }
-}
-
-export async function getConversationHistory(
-  userId: string,
-  limit: number = 5
-): Promise<ChatbotMessage[]> {
-  try {
-    const { data: conversation, error: convError } = await supabase
-      .from('chatbot_conversations')
-      .select('id')
-      .eq('user_id', userId)
-      .order('created_at', { ascending: false })
-      .limit(1)
-      .maybeSingle();
-
-    if (convError || !conversation) return [];
-
-    const { data: messages, error: msgError } = await supabase
-      .from('chatbot_messages')
-      .select('role, content')
-      .eq('conversation_id', conversation.id)
-      .order('created_at', { ascending: true })
-      .limit(limit);
-
-    if (msgError) return [];
-
-    return (
-      messages?.map((msg) => ({
-        role: msg.role as 'user' | 'assistant',
-        content: msg.content,
-      })) || []
-    );
-  } catch (error) {
-    console.error('Get history error:', error);
-    return [];
-  }
-}
 
 export async function getUserPreferences(userId: string) {
   try {
@@ -145,8 +77,7 @@ export async function getUserPreferences(userId: string) {
 
     if (error) throw error;
     return data;
-  } catch (error) {
-    console.error('Get preferences error:', error);
+  } catch {
     return null;
   }
 }
@@ -178,8 +109,7 @@ export async function updateUserPreferences(
 
     if (error) throw error;
     return data;
-  } catch (error) {
-    console.error('Update preferences error:', error);
+  } catch {
     return null;
   }
 }

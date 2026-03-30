@@ -26,20 +26,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Initialize auth state
     supabase.auth.getSession().then(({ data: { session } }) => {
-      console.log('Initial session:', session?.user?.id || 'No session');
       setSession(session);
       setUser(session?.user || null);
       setLoading(false);
-    }).catch((error) => {
-      console.error('Error getting session:', error);
+    }).catch(() => {
       setLoading(false);
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       (async () => {
-        console.log('Auth state changed:', event, session?.user?.id || 'No user');
         setSession(session);
         setUser(session?.user || null);
       })();
@@ -52,16 +48,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const signUp = async (email: string, password: string, displayName: string) => {
     try {
-      console.log('Signing up user...');
       const { data, error: signUpError } = await supabase.auth.signUp({ email, password });
 
       if (signUpError) {
-        console.error('Signup error:', signUpError);
         return { error: signUpError };
       }
 
       if (data.user) {
-        console.log('User created, creating profile...');
         const { error: profileError } = await supabase.from('profiles').insert([
           {
             user_id: data.user.id,
@@ -70,11 +63,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         ]);
 
         if (profileError) {
-          console.error('Profile creation error:', profileError);
           return { error: profileError };
         }
 
-        console.log('Profile created, creating chatbot preferences...');
         const { error: chatbotError } = await supabase.from('chatbot_preferences').insert([
           {
             user_id: data.user.id,
@@ -82,32 +73,21 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         ]);
 
         if (chatbotError) {
-          console.error('Chatbot preferences error:', chatbotError);
           return { error: chatbotError };
         }
-
-        console.log('Signup complete!');
       }
 
       return { error: null };
     } catch (error) {
-      console.error('Unexpected signup error:', error);
       return { error: error as Error };
     }
   };
 
   const signIn = async (email: string, password: string) => {
     try {
-      console.log('Signing in user...');
-      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-      if (error) {
-        console.error('Sign in error:', error);
-      } else {
-        console.log('Sign in successful:', data.user?.id);
-      }
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
       return { error };
     } catch (error) {
-      console.error('Unexpected sign in error:', error);
       return { error: error as Error };
     }
   };

@@ -68,8 +68,8 @@ export default function TrackScreen() {
       ]);
 
       setRecentEntries(buildUnifiedEntries(bowels || [], urinations || [], meals || []).slice(0, 8));
-    } catch (error) {
-      console.error('Error loading recent entries:', error);
+    } catch {
+      // Failed to load entries
     }
   }, [user]);
 

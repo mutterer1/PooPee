@@ -57,7 +57,6 @@ export default function InsightsModal({ visible, onClose, entryId }: InsightsMod
           .order('insight_type', { ascending: true });
 
         if (error) {
-          console.error('Error loading insights:', error);
           break;
         }
 
@@ -72,8 +71,7 @@ export default function InsightsModal({ visible, onClose, entryId }: InsightsMod
       }
 
       setLoading(false);
-    } catch (error) {
-      console.error('Error in loadInsights:', error);
+    } catch {
       setLoading(false);
     }
   };

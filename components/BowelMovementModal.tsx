@@ -79,8 +79,8 @@ export default function BowelMovementModal({ visible, onClose, onSuccess, onInsi
       if (result.success && onInsightsGenerated) {
         onInsightsGenerated(entryId);
       }
-    } catch (error) {
-      console.error('Error generating insights:', error);
+    } catch {
+      // Failed to generate insights
     }
   };
 
@@ -112,11 +112,8 @@ export default function BowelMovementModal({ visible, onClose, onSuccess, onInsi
       ]).select();
 
       if (error) {
-        console.error('Database error:', error);
         throw error;
       }
-
-      console.log('Bowel movement saved successfully:', data);
 
       const entryId = data[0]?.id;
 
@@ -139,7 +136,6 @@ export default function BowelMovementModal({ visible, onClose, onSuccess, onInsi
         onClose();
       }, 2500);
     } catch (error: any) {
-      console.error('Save error:', error);
       Alert.alert('Error', error?.message || 'Failed to save bowel movement. Please try again.');
     } finally {
       setSaving(false);

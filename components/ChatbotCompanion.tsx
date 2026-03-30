@@ -5,7 +5,7 @@ import { SPACING, BORDER_RADIUS, SHADOWS } from '@/theme/styles';
 import { getChatbotResponse } from '@/lib/chatbot.responses';
 import { useAuth } from '@/lib/auth.context';
 import { supabase } from '@/lib/supabase';
-import { Volume2, X } from 'lucide-react-native';
+import { X } from 'lucide-react-native';
 
 interface ChatbotCompanionProps {
   visible: boolean;
@@ -48,8 +48,8 @@ export default function ChatbotCompanion({
         if (data && data.enabled) {
           setPreferences(data);
         }
-      } catch (error) {
-        console.error('Error loading chatbot preferences:', error);
+      } catch {
+        // Preferences not available
       }
     };
 
@@ -99,11 +99,6 @@ export default function ChatbotCompanion({
     return '👩‍⚕️';
   };
 
-  const handleSpeak = async () => {
-    if (!displayMessage) return;
-    console.log('Speaking:', displayMessage);
-  };
-
   return (
     <Animated.View
       style={[
@@ -121,18 +116,13 @@ export default function ChatbotCompanion({
         <View style={styles.messageBox}>
           <Text style={styles.message}>{displayMessage}</Text>
 
-          <View style={styles.actions}>
-            <TouchableOpacity style={styles.actionButton} onPress={handleSpeak}>
-              <Volume2 size={16} color={MEDITATIVE_COLORS.primary.coral} />
-              <Text style={styles.actionText}>Hear</Text>
-            </TouchableOpacity>
-
-            {onClose && (
+          {onClose && (
+            <View style={styles.actions}>
               <TouchableOpacity style={styles.closeButton} onPress={onClose}>
                 <X size={16} color={MEDITATIVE_COLORS.text.primary} />
               </TouchableOpacity>
-            )}
-          </View>
+            </View>
+          )}
         </View>
       </View>
     </Animated.View>
@@ -172,23 +162,7 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.md,
   },
   actions: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  actionButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: SPACING.xs,
-    paddingHorizontal: SPACING.md,
-    paddingVertical: SPACING.sm,
-    backgroundColor: MEDITATIVE_COLORS.chatbot.accent + '20',
-    borderRadius: BORDER_RADIUS.md,
-  },
-  actionText: {
-    fontSize: 12,
-    fontWeight: '600',
-    color: MEDITATIVE_COLORS.primary.coral,
+    alignItems: 'flex-end',
   },
   closeButton: {
     padding: SPACING.sm,

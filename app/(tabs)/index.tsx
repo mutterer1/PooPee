@@ -119,10 +119,6 @@ export default function HomeScreen() {
         .eq('user_id', user.id)
         .maybeSingle();
 
-      if (profileError) {
-        console.error('Profile error:', profileError);
-      }
-
       if (profileData) {
         setProfile(profileData);
       }
@@ -132,7 +128,7 @@ export default function HomeScreen() {
 
       const todayIso = todayStart.toISOString();
 
-      const [{ data: bowels, error: bowelsError }, { data: urinations, error: urinationsError }, { data: meals, error: mealsError }] = await Promise.all([
+      const [{ data: bowels }, { data: urinations }, { data: meals }] = await Promise.all([
         supabase
           .from('bowel_movements')
           .select('id, bristol_scale, created_at')
@@ -152,10 +148,6 @@ export default function HomeScreen() {
           .gte('created_at', todayIso)
           .order('created_at', { ascending: false }),
       ]);
-
-      if (bowelsError) console.error('Bowels query error:', bowelsError);
-      if (urinationsError) console.error('Urinations query error:', urinationsError);
-      if (mealsError) console.error('Meals query error:', mealsError);
 
       setStats({
         bowelCount: bowels?.length || 0,
@@ -206,8 +198,6 @@ export default function HomeScreen() {
         .limit(6);
 
       setAchievements(achievementData || []);
-    } catch (error) {
-      console.error('Error loading home data:', error);
     } finally {
       setLoading(false);
     }

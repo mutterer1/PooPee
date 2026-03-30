@@ -71,11 +71,9 @@ export default function UrinationModal({ visible, onClose, onSuccess }: Urinatio
       ]).select();
 
       if (error) {
-        console.error('Database error:', error);
         throw error;
       }
 
-      console.log('Urination saved successfully:', data);
       resetForm();
       onSuccess?.();
       setShowSuccess(true);
@@ -83,7 +81,6 @@ export default function UrinationModal({ visible, onClose, onSuccess }: Urinatio
         onClose();
       }, 2500);
     } catch (error: any) {
-      console.error('Save error:', error);
       Alert.alert('Error', error?.message || 'Failed to save urination. Please try again.');
     } finally {
       setSaving(false);

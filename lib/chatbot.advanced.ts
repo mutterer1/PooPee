@@ -77,9 +77,6 @@ export async function getEnhancedChatbotResponse(
       error: result.error,
     };
   } catch (error) {
-    console.error('Enhanced chatbot response error:', error);
-
-    // Ultimate fallback
     return {
       message: getChatbotResponse(
         fallbackAccent,
@@ -90,49 +87,6 @@ export async function getEnhancedChatbotResponse(
       error: error instanceof Error ? error.message : 'Unknown error',
     };
   }
-}
-
-/**
- * Create a smart meal analysis prompt
- */
-export function createMealAnalysisPrompt(mealDescription: string): string {
-  return `I just ate: ${mealDescription}. Can you help me understand how this might affect my digestive health?`;
-}
-
-/**
- * Create a smart stool analysis prompt
- */
-export function createStoolAnalysisPrompt(
-  bristolScale?: string,
-  symptoms?: string[]
-): string {
-  let prompt = 'I want to discuss my stool characteristics';
-
-  if (bristolScale) {
-    prompt += ` (Bristol scale ${bristolScale})`;
-  }
-
-  if (symptoms && symptoms.length > 0) {
-    prompt += ` with symptoms: ${symptoms.join(', ')}`;
-  }
-
-  prompt += '. What factors might be contributing?';
-
-  return prompt;
-}
-
-/**
- * Create a smart health pattern analysis prompt
- */
-export function createPatternAnalysisPrompt(
-  dailyLogs: {
-    meals: number;
-    bowelMovements: number;
-    urinations: number;
-  }
-): string {
-  return `Today I logged ${dailyLogs.meals} meals, ${dailyLogs.bowelMovements} bowel movements, and ${dailyLogs.urinations} urinations.
-  What patterns or insights might this suggest about my wellness?`;
 }
 
 /**
