@@ -1,14 +1,9 @@
 import { Tabs } from 'expo-router';
 import { House, ChartBar as BarChart3, Settings } from 'lucide-react-native';
 import { DS } from '@/theme/colors';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Animated } from 'react-native';
 import PoopIcon from '@/components/PoopIcon';
-import { LinearGradient } from 'expo-linear-gradient';
-
-const TAB_GRADIENT: [string, string] = [
-  'rgba(99,58,127,0.82)',
-  'rgba(79,100,75,0.82)',
-];
+import { useEffect, useRef } from 'react';
 
 function TabIcon({
   icon,
@@ -19,17 +14,45 @@ function TabIcon({
   label: string;
   focused: boolean;
 }) {
+  const shimmerAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    if (focused) {
+      Animated.loop(
+        Animated.sequence([
+          Animated.timing(shimmerAnim, {
+            toValue: 1,
+            duration: 1500,
+            useNativeDriver: false,
+          }),
+          Animated.timing(shimmerAnim, {
+            toValue: 0,
+            duration: 1500,
+            useNativeDriver: false,
+          }),
+        ])
+      ).start();
+    }
+  }, [focused, shimmerAnim]);
+
+  const opacity = shimmerAnim.interpolate({
+    inputRange: [0, 0.5, 1],
+    outputRange: [1, 0.6, 1],
+  });
+
   return (
     <View style={styles.tabItem}>
       {focused ? (
-        <LinearGradient
-          colors={['rgba(255,255,255,0.28)', 'rgba(255,255,255,0.12)']}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-          style={styles.activePill}
+        <Animated.View
+          style={[
+            styles.activePill,
+            {
+              opacity,
+            },
+          ]}
         >
           {icon}
-        </LinearGradient>
+        </Animated.View>
       ) : (
         <View style={styles.inactivePill}>{icon}</View>
       )}
@@ -46,21 +69,13 @@ export default function TabsLayout() {
         tabBarShowLabel: false,
         tabBarStyle: styles.tabBar,
         tabBarItemStyle: styles.tabBarItem,
-        tabBarBackground: () => (
-          <LinearGradient
-            colors={TAB_GRADIENT}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 0 }}
-            style={StyleSheet.absoluteFill}
-          />
-        ),
       }}>
       <Tabs.Screen
         name="index"
         options={{
           tabBarIcon: ({ focused }) => (
             <TabIcon
-              icon={<House size={20} color="#ffffff" strokeWidth={focused ? 2.0 : 1.8} />}
+              icon={<House size={20} color="#000000" strokeWidth={focused ? 2.0 : 1.8} />}
               label="Home"
               focused={focused}
             />
@@ -72,7 +87,7 @@ export default function TabsLayout() {
         options={{
           tabBarIcon: ({ focused }) => (
             <TabIcon
-              icon={<PoopIcon size={20} color="#ffffff" />}
+              icon={<PoopIcon size={20} color="#000000" />}
               label="Track"
               focused={focused}
             />
@@ -84,7 +99,7 @@ export default function TabsLayout() {
         options={{
           tabBarIcon: ({ focused }) => (
             <TabIcon
-              icon={<BarChart3 size={20} color="#ffffff" strokeWidth={focused ? 2.0 : 1.8} />}
+              icon={<BarChart3 size={20} color="#000000" strokeWidth={focused ? 2.0 : 1.8} />}
               label="Insights"
               focused={focused}
             />
@@ -96,7 +111,7 @@ export default function TabsLayout() {
         options={{
           tabBarIcon: ({ focused }) => (
             <TabIcon
-              icon={<Settings size={20} color="#ffffff" strokeWidth={focused ? 2.0 : 1.8} />}
+              icon={<Settings size={20} color="#000000" strokeWidth={focused ? 2.0 : 1.8} />}
               label="Settings"
               focused={focused}
             />
@@ -114,7 +129,7 @@ const styles = StyleSheet.create({
     height: 72,
     paddingBottom: 8,
     paddingTop: 10,
-    backgroundColor: 'transparent',
+    backgroundColor: '#ffffff',
   },
   tabBarItem: {
     flex: 1,
@@ -132,6 +147,7 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: 'rgba(255,255,255,0.2)',
   },
   inactivePill: {
     width: 52,
@@ -143,10 +159,10 @@ const styles = StyleSheet.create({
   tabLabel: {
     fontSize: 11,
     fontWeight: '500',
-    color: 'rgba(255,255,255,0.65)',
+    color: 'rgba(0,0,0,0.5)',
   },
   tabLabelActive: {
-    color: '#ffffff',
+    color: '#000000',
     fontWeight: '700',
   },
 });
