@@ -2,7 +2,7 @@ import { Tabs } from 'expo-router';
 import { House, ChartBar as BarChart3, Settings } from 'lucide-react-native';
 import { DS } from '@/theme/colors';
 import { View, Text, StyleSheet, Animated } from 'react-native';
-import PoopIcon from '@/components/PoopIcon';
+import PooPeeLogoMark from '@/components/PooPeeLogoMark';
 import { useEffect, useRef } from 'react';
 
 function TabIcon({
@@ -75,7 +75,7 @@ export default function TabsLayout() {
         options={{
           tabBarIcon: ({ focused }) => (
             <TabIcon
-              icon={<House size={20} color="#000000" strokeWidth={focused ? 2.0 : 1.8} />}
+              icon={<House size={24} color="#000000" strokeWidth={focused ? 2.5 : 2.0} />}
               label="Home"
               focused={focused}
             />
@@ -87,7 +87,7 @@ export default function TabsLayout() {
         options={{
           tabBarIcon: ({ focused }) => (
             <TabIcon
-              icon={<PoopIcon size={20} color="#000000" />}
+              icon={<PooPeeLogoMark size={24} color="#000000" />}
               label="Track"
               focused={focused}
             />
@@ -99,7 +99,7 @@ export default function TabsLayout() {
         options={{
           tabBarIcon: ({ focused }) => (
             <TabIcon
-              icon={<BarChart3 size={20} color="#000000" strokeWidth={focused ? 2.0 : 1.8} />}
+              icon={<BarChart3 size={24} color="#000000" strokeWidth={focused ? 2.5 : 2.0} />}
               label="Insights"
               focused={focused}
             />
@@ -111,7 +111,7 @@ export default function TabsLayout() {
         options={{
           tabBarIcon: ({ focused }) => (
             <TabIcon
-              icon={<Settings size={20} color="#000000" strokeWidth={focused ? 2.0 : 1.8} />}
+              icon={<Settings size={24} color="#000000" strokeWidth={focused ? 2.5 : 2.0} />}
               label="Settings"
               focused={focused}
             />
