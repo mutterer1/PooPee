@@ -127,8 +127,8 @@ const styles = StyleSheet.create({
     borderTopWidth: 0,
     elevation: 0,
     height: 72,
-    paddingBottom: 8,
-    paddingTop: 10,
+    paddingBottom: 6,
+    paddingTop: 6,
     backgroundColor: '#ffffff',
   },
   tabBarItem: {
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
   tabItem: {
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 3,
+    gap: 2,
   },
   activePill: {
     width: 52,
