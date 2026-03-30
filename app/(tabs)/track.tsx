@@ -12,6 +12,7 @@ import ChatbotButton from '@/components/ChatbotButton';
 import ChatbotCompanion from '@/components/ChatbotCompanion';
 import PhotoAnalysisModal from '@/components/PhotoAnalysisModal';
 import InsightsModal from '@/components/InsightsModal';
+import AIAnalysisSelectionModal from '@/components/AIAnalysisSelectionModal';
 import { Camera, Activity, Droplets, Utensils } from 'lucide-react-native';
 import { useAuth } from '@/lib/auth.context';
 import { supabase } from '@/lib/supabase';
@@ -39,6 +40,7 @@ export default function TrackScreen() {
   const [insightsVisible, setInsightsVisible] = useState(false);
   const [currentEntryId, setCurrentEntryId] = useState<string | null>(null);
   const [mealCameraVisible, setMealCameraVisible] = useState(false);
+  const [aiAnalysisSelectionVisible, setAIAnalysisSelectionVisible] = useState(false);
 
   const loadRecentEntries = useCallback(async () => {
     if (!user) return;
@@ -106,14 +108,6 @@ export default function TrackScreen() {
     setInsightsVisible(true);
   };
 
-  const openStoolCamera = () => {
-    setCameraVisible(true);
-  };
-
-  const openMealCamera = () => {
-    setMealCameraVisible(true);
-  };
-
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
       <GradientBackground />
@@ -139,13 +133,16 @@ export default function TrackScreen() {
         </View>
 
         <View style={styles.trackingOptions}>
-          <TouchableOpacity style={[baseStyles.card, styles.trackCard]} onPress={openStoolCamera}>
+          <TouchableOpacity
+            style={[baseStyles.card, styles.trackCard]}
+            onPress={() => setAIAnalysisSelectionVisible(true)}
+          >
             <View style={[styles.trackIconContainer, styles.aiIconWrap]}>
               <Camera size={30} color={MEDITATIVE_COLORS.primary.lavender} />
             </View>
-            <Text style={styles.trackTitle}>AI Stool Analysis</Text>
+            <Text style={styles.trackTitle}>AI Analysis</Text>
             <Text style={styles.trackDescription}>
-              Snap a photo and let AI analyze your stool.
+              Snap a photo for stool or meal analysis.
             </Text>
           </TouchableOpacity>
 
@@ -176,16 +173,6 @@ export default function TrackScreen() {
             <Text style={styles.trackTitle}>Urination</Text>
             <Text style={styles.trackDescription}>
               Volume, color, timing, and flow clues.
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={[baseStyles.card, styles.trackCard]} onPress={openMealCamera}>
-            <View style={[styles.trackIconContainer, styles.aiIconWrap]}>
-              <Camera size={30} color={MEDITATIVE_COLORS.primary.lavender} />
-            </View>
-            <Text style={styles.trackTitle}>AI Meal Analysis</Text>
-            <Text style={styles.trackDescription}>
-              Snap a photo and get nutritional estimates.
             </Text>
           </TouchableOpacity>
 
@@ -249,6 +236,21 @@ export default function TrackScreen() {
           visible={insightsVisible}
           onClose={() => setInsightsVisible(false)}
           entryId={currentEntryId}
+        />
+      )}
+
+      {aiAnalysisSelectionVisible && (
+        <AIAnalysisSelectionModal
+          visible={aiAnalysisSelectionVisible}
+          onSelectStool={() => {
+            setAIAnalysisSelectionVisible(false);
+            setCameraVisible(true);
+          }}
+          onSelectMeal={() => {
+            setAIAnalysisSelectionVisible(false);
+            setMealCameraVisible(true);
+          }}
+          onClose={() => setAIAnalysisSelectionVisible(false)}
         />
       )}
 
