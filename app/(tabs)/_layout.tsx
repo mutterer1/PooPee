@@ -60,7 +60,7 @@ export default function TabsLayout() {
         options={{
           tabBarIcon: ({ focused }) => (
             <TabIcon
-              icon={<House size={20} color="#ffffff" strokeWidth={focused ? 2.5 : 1.8} />}
+              icon={<House size={20} color="#ffffff" strokeWidth={focused ? 2.0 : 1.8} />}
               label="Home"
               focused={focused}
             />
@@ -84,7 +84,7 @@ export default function TabsLayout() {
         options={{
           tabBarIcon: ({ focused }) => (
             <TabIcon
-              icon={<BarChart3 size={20} color="#ffffff" strokeWidth={focused ? 2.5 : 1.8} />}
+              icon={<BarChart3 size={20} color="#ffffff" strokeWidth={focused ? 2.0 : 1.8} />}
               label="Insights"
               focused={focused}
             />
@@ -96,7 +96,7 @@ export default function TabsLayout() {
         options={{
           tabBarIcon: ({ focused }) => (
             <TabIcon
-              icon={<Settings size={20} color="#ffffff" strokeWidth={focused ? 2.5 : 1.8} />}
+              icon={<Settings size={20} color="#ffffff" strokeWidth={focused ? 2.0 : 1.8} />}
               label="Settings"
               focused={focused}
             />
