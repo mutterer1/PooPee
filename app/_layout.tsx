@@ -28,7 +28,7 @@ function RootLayoutContent() {
   if (loading) {
     return (
       <View style={styles.loadingScreen}>
-        <PooPeeLogo size={220} showText={true} stacked={true} />
+        <PooPeeLogo size={250} showText={true} stacked={true} />
         <Text style={styles.loadingTagline}>
           Smarter tracking for life's most overlooked signals.
         </Text>
